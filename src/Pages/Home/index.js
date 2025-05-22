@@ -30,8 +30,7 @@ const Home = () => {
             <div className="sidebar-item" key={idx}>{cat}</div>
           ))}
         </div>
-        <div className="banner-section">
-          <img src={banner} alt="banner" className="banner-img" />
+        <div className="banner-section" style={{ backgroundImage: `url(${banner})` }}>
           <div className="banner-content">
             <div className="banner-row">
               <img src={logo2} alt="logo2" className="banner-logo" />
