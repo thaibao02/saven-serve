@@ -10,9 +10,16 @@ import thumua from '../../Assets/thumua.png';
 import phanloai from '../../Assets/phanloai.png';
 import dangban from '../../Assets/dangban.png';
 import giaonhanh from '../../Assets/giaonhanh.png';
+import new1 from '../../Assets/new1.png';
+import new2 from '../../Assets/new2.png';
+import new3 from '../../Assets/new3.png';
+import kfc from '../../Assets/kfc.png';
+import lotte from '../../Assets/lotte.png';
+import gs25 from '../../Assets/gs25.png';
+import topsmarket from '../../Assets/topsmarket.png';
 import './Home.css';
 import { GiPumpkin, GiGrapes, GiOrangeSlice } from 'react-icons/gi';
-import { FaChevronLeft, FaChevronRight, FaFire } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaFire, FaUser, FaRegComment } from 'react-icons/fa';
 
 const categories = [
   'Khuyến Mãi',
@@ -131,17 +138,17 @@ const Home = () => {
             {[1,2,3,4,5,6,7,8,9].map((item, idx) => (
               <div className="promotion-product-card" key={idx}>
                 <img src={cocacola} alt="Coca cola" className="promotion-product-img" />
-                <div className="promotion-product-pack">6 <span>320ML</span> Lon</div>
+                <div className="promotion-product-pack">6 Lon <span>320ML</span></div>
                 <div className="promotion-progress">
                   <div className="promotion-progress-bar"></div>
                   <span className="promotion-progress-label">Sắp cháy hàng <FaFire color="#ff5722" size={16} style={{marginLeft: 4}} /></span>
                 </div>
                 <div className="promotion-product-name">Coca cola</div>
                 <div className="promotion-product-rating">★ ★ ★ ★ ★</div>
-                <div className="promotion-product-price"><span>7.000 VND</span> /500g</div>
+                <div className="promotion-product-price"><span>8.000 VND</span> /Lon</div>
                 <div className="promotion-product-bottom">
-                  <span className="promotion-product-old">10.000 VND</span>
-                  <span className="promotion-product-exp">HSD: Còn 2 ngày</span>
+                  <span className="promotion-product-old">12.000 VND</span>
+                  <span className="promotion-product-exp">HSD: Còn  3 tháng </span>
                 </div>
               </div>
             ))}
@@ -174,6 +181,67 @@ const Home = () => {
             <div className="how-desc">Đơn hàng được giao nhanh chóng, kèm theo lời kêu gọi cùng chung tay giảm lãng phí thực phẩm và bảo vệ môi trường.</div>
           </div>
         </div>
+      </div>
+
+      <div className="news-section">
+        <div className="news-header">
+          <div className="news-title">Tin Tức</div>
+          <a href="/news" className="news-viewall">VIEW ALL</a>
+        </div>
+        <div className="news-slider">
+          <button className="news-arrow left"><FaChevronLeft color="#7bc043" size={28} /></button>
+          <div className="news-list">
+            <div className="news-card">
+              <img src={new1} alt="news1" className="news-img" />
+              <div className="news-card-title">Các bữa ăn đủ chất dinh dưỡng thường được các gia đình sử dụng.</div>
+              <div className="news-card-meta">
+                <span><FaUser size={16} style={{marginRight: 6}} /> Quản Không Gờ</span>
+                <span><FaRegComment size={16} style={{marginRight: 6, marginLeft: 18}} /> Nhận xét</span>
+              </div>
+            </div>
+            <div className="news-card">
+              <img src={new2} alt="news2" className="news-img" />
+              <div className="news-card-title">Các quán ăn vặt nổi tiếng nhiều người ăn tại Quận Đống Đa, cùng khám phá?</div>
+              <div className="news-card-meta">
+                <span><FaUser size={16} style={{marginRight: 6}} /> Quản Không Gờ</span>
+                <span><FaRegComment size={16} style={{marginRight: 6, marginLeft: 18}} /> Nhận xét</span>
+              </div>
+            </div>
+            <div className="news-card">
+              <img src={new3} alt="news3" className="news-img" />
+              <div className="news-card-title">Món ăn gia đình, và đánh giá sau mỗi bữa ăn của các thành viên điều này có thực sự quan trọng ?.</div>
+              <div className="news-card-meta">
+                <span><FaUser size={16} style={{marginRight: 6}} /> Quản Không Gờ</span>
+                <span><FaRegComment size={16} style={{marginRight: 6, marginLeft: 18}} /> Nhận xét</span>
+              </div>
+            </div>
+            <div className="news-card">
+              <img src={new1} alt="news1" className="news-img" />
+              <div className="news-card-title">Các bữa ăn đủ chất dinh dưỡng thường được các gia đình sử dụng.</div>
+              <div className="news-card-meta">
+                <span><FaUser size={16} style={{marginRight: 6}} /> Quản Không Gờ</span>
+                <span><FaRegComment size={16} style={{marginRight: 6, marginLeft: 18}} /> Nhận xét</span>
+              </div>
+            </div>
+            <div className="news-card">
+              <img src={new2} alt="news2" className="news-img" />
+              <div className="news-card-title">Các quán ăn vặt nổi tiếng nhiều người ăn tại Quận Đống Đa, cùng khám phá?</div>
+              <div className="news-card-meta">
+                <span><FaUser size={16} style={{marginRight: 6}} /> Quản Không Gờ</span>
+                <span><FaRegComment size={16} style={{marginRight: 6, marginLeft: 18}} /> Nhận xét</span>
+              </div>
+            </div>
+            
+          </div>
+          <button className="news-arrow right"><FaChevronRight color="#7bc043" size={28} /></button>
+        </div>
+      </div>
+            
+      <div className="partner-section">
+        <img src={kfc} alt="KFC" className="partner-logo" />
+        <img src={lotte} alt="Lotte" className="partner-logo" />
+        <img src={gs25} alt="GS25" className="partner-logo" />
+        <img src={topsmarket} alt="Tops Market" className="partner-logo" />
       </div>
     </div>
   );
