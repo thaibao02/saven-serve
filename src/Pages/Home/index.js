@@ -1,6 +1,10 @@
 import React from 'react';
 import banner from '../../Assets/banner.jpg';
 import logo2 from '../../Assets/logo2.jpg';
+import banner2 from '../../Assets/banner2.png';
+import thit from '../../Assets/thit.png';
+import raucu from '../../Assets/raucu.png';
+import nuocngot from '../../Assets/nuocngot.png';
 import './Home.css';
 import { GiPumpkin, GiGrapes, GiOrangeSlice } from 'react-icons/gi';
 
@@ -66,7 +70,27 @@ const Home = () => {
         </div>
       </div>
 
-      
+      {/* Section 3 cột sản phẩm */}
+      <div className="product-section" style={{ backgroundImage: `url(${banner2})` }}>
+        <div className="product-item">
+          <img src={thit} alt="Thực phẩm tươi sống" className="product-img" />
+          <div className="product-title">Thực phẩm Tươi Sống</div>
+          <div className="product-desc">Chọn lựa đa dạng các loại thịt, cá, trứng, hải sản tươi ngon mỗi ngày</div>
+          <button className="product-btn">Xem</button>
+        </div>
+        <div className="product-item">
+          <img src={raucu} alt="Thực phẩm xanh" className="product-img" />
+          <div className="product-title">Thực phẩm xanh</div>
+          <div className="product-desc">Rau củ quả và nấm tươi sạch, giàu dinh dưỡng và an toàn cho sức khỏe.</div>
+          <button className="product-btn">Xem</button>
+        </div>
+        <div className="product-item">
+          <img src={nuocngot} alt="Đồ uống" className="product-img" />
+          <div className="product-title">Đồ uống</div>
+          <div className="product-desc">Đồ uống tiện lợi, tươi mát và dễ sử dụng mỗi ngày.</div>
+          <button className="product-btn">Xem</button>
+        </div>
+      </div>
     </div>
   );
 }
