@@ -6,6 +6,10 @@ import thit from '../../Assets/thit.png';
 import raucu from '../../Assets/raucu.png';
 import nuocngot from '../../Assets/nuocngot.png';
 import cocacola from '../../Assets/cocacola.png';
+import thumua from '../../Assets/thumua.png';
+import phanloai from '../../Assets/phanloai.png';
+import dangban from '../../Assets/dangban.png';
+import giaonhanh from '../../Assets/giaonhanh.png';
 import './Home.css';
 import { GiPumpkin, GiGrapes, GiOrangeSlice } from 'react-icons/gi';
 import { FaChevronLeft, FaChevronRight, FaFire } from 'react-icons/fa';
@@ -146,9 +150,31 @@ const Home = () => {
         </div>
       </div>
 
-        <div>
-            
+      <div className="how-section">
+        <h2 className="how-title">Cách chúng tôi hoạt động</h2>
+        <div className="how-list">
+          <div className="how-item">
+            <img src={thumua} alt="Thu mua" className="how-img" />
+            <div className="how-item-title">Thu mua đồ ăn từ đối tác</div>
+            <div className="how-desc">Chúng tôi hợp tác với các nhà hàng, siêu thị, cửa hàng thực phẩm để thu mua thực phẩm dư thừa, đảm bảo chất lượng và an toàn.</div>
+          </div>
+          <div className="how-item">
+            <img src={phanloai} alt="Phân loại" className="how-img" />
+            <div className="how-item-title">Phân loại và kiểm định</div>
+            <div className="how-desc">Thực phẩm được phân loại, kiểm định kỹ càng về chất lượng, nguồn gốc và hạn sử dụng trước khi đưa đến tay khách hàng.</div>
+          </div>
+          <div className="how-item">
+            <img src={dangban} alt="Đăng bán" className="how-img" />
+            <div className="how-item-title">Đăng bán trên Website</div>
+            <div className="how-desc">Các sản phẩm đạt chuẩn sẽ được đăng bán trên website với giá ưu đãi, minh bạch thông tin và nguồn gốc.</div>
+          </div>
+          <div className="how-item">
+            <img src={giaonhanh} alt="Giao nhanh" className="how-img" />
+            <div className="how-item-title">Giao nhanh & kêu gọi</div>
+            <div className="how-desc">Đơn hàng được giao nhanh chóng, kèm theo lời kêu gọi cùng chung tay giảm lãng phí thực phẩm và bảo vệ môi trường.</div>
+          </div>
         </div>
+      </div>
     </div>
   );
 }

@@ -210,6 +210,7 @@
   border-radius: 14px;
   border: 2px solid #2196f3;
   padding: 32px 18px 32px 18px;
+  min-height: 480px;
 }
 .promotion-header {
   display: flex;
@@ -372,4 +373,67 @@
 .promotion-product-exp {
   color: #222;
   font-weight: 500;
+}
+
+.how-section {
+  margin: 36px 24px;
+  background: #fff;
+  border-radius: 14px;
+  border: 2px solid #2196f3;
+  padding: 36px 18px 36px 18px;
+  text-align: center;
+}
+.how-title {
+  font-size: 38px;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 36px;
+}
+.how-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.how-item {
+  flex: 1 1 22%;
+  min-width: 220px;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 18px 0 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 48px;
+}
+.how-img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  margin-bottom: 18px;
+}
+.how-item-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 10px;
+}
+.how-desc {
+  color: #888;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+@media (max-width: 900px) {
+  .how-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .how-item {
+    max-width: 90vw;
+    margin-bottom: 24px;
+  }
 } 
