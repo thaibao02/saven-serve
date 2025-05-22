@@ -51,3 +51,106 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+.footer-section {
+  background: linear-gradient(135deg, #8BC34A 0%, #6fcf97 100%);
+  border-radius: 14px;
+  padding: 48px 0 48px 0;
+  color: #222;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.footer-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+.footer-logo {
+  height: 80px;
+  width: auto;
+}
+.footer-title {
+  color: #fff;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.footer-hours {
+  background: #0cbc2c;
+  color: #fff;
+  border-radius: 18px;
+  padding: 18px 38px;
+  font-size: 26px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  box-shadow: 0 8px 32px 0 rgba(0, 128, 0, 0.18);
+  margin-bottom: 24px;
+}
+.footer-hours-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+.footer-hours-day, .footer-hours-time {
+  font-size: 22px;
+  font-weight: 500;
+}
+.footer-contact-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 36px 0 18px 0;
+  flex-wrap: wrap;
+}
+.footer-hr {
+  border: none;
+  border-top: 2px solid #b6d47a;
+  margin: 18px 48px 0 48px;
+}
+.footer-bottom-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 18px 48px 0 48px;
+  font-size: 16px;
+}
+.footer-socials {
+  display: flex;
+  gap: 18px;
+  color: #222;
+  font-size: 30px;
+}
+.footer-socials svg {
+  background: #fff;
+  border-radius: 50%;
+  padding: 6px;
+  font-size: 30px;
+  transition: background 0.2s, color 0.2s;
+}
+.footer-socials svg:hover {
+  background: #0cbc2c;
+  color: #fff;
+}
+@media (max-width: 900px) {
+  .footer-contact-row, .footer-bottom-row {
+    flex-direction: column;
+    gap: 18px;
+    margin: 18px 0 0 0;
+  }
+  .footer-hours {
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 18px;
+  }
+}

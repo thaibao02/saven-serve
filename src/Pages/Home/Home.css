@@ -1,9 +1,10 @@
 .home {
   background-color: rgb(245, 239, 231);
+  padding: 24px;
 }
 .home-container {
   display: flex;
-  margin: 20px 0;
+  padding-top: 20px;
   justify-content: center;
 }
 
@@ -535,6 +536,7 @@
 
 .partner-section {
   margin: 24px 24px 0 24px;
+  padding-bottom: 24px;
   background: #fff;
   border-radius: 14px;
   display: flex;
