@@ -27,10 +27,7 @@ const Header = () => {
                 <FiPhone style={{ color: 'white', fontSize: '20px', marginRight: '8px' }} />
                 <span style={{ color: 'white' }}>+84 915 824 712</span>
             </div>
-            {/* icon profile */}
-            <div className="profile">
-                <img src="https://saven-serve.s3.amazonaws.com/profile.png" alt="profile" />
-            </div>
+            
         </div>
     );
 }
