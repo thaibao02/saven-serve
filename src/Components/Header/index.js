@@ -1,6 +1,5 @@
 import { FiPhone } from 'react-icons/fi';
-import logo from '../../Assets/logo1.jpg';
-import SaveNServer from '../../Assets/SaveNServer.png';
+import logochinh from '../../Assets/logochinh.png';
 
 const Header = () => {
     return(
@@ -8,18 +7,17 @@ const Header = () => {
         <div className="header">
             {/* logo */}
             <div className="logo">
-                <img src={logo} alt="logo" />
-                <img src={SaveNServer} alt="SaveNServer" style={{ height: '20px', marginLeft: '15px' }} />
+                <img src={logochinh} alt="logo" className="logo-img" />
             </div>
 
             {/* navigation */}
             <div className="navigation">
                 <ul>
                     <li><a href="/">Trang chủ</a></li>
-                    <li><a href="/shop">Mua sắm</a></li>
-                    <li><a href="/info">Thông Tin</a></li>
-                    <li><a href="/news">Tin Tức</a></li>
-                    <li><a href="/contact">Liên Hệ</a></li>
+                    <li><a href="/Buy">Mua sắm</a></li>
+                    <li><a href="/Info">Thông Tin</a></li>
+                    <li><a href="/News">Tin Tức</a></li>
+                    <li><a href="/Contact">Liên Hệ</a></li>
                 </ul>
             </div>
             {/* phone icon and number */}

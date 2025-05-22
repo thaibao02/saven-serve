@@ -1,3 +1,6 @@
+.home {
+  background-color: rgb(245, 239, 231);
+}
 .home-container {
   display: flex;
   margin: 20px 0;
@@ -102,8 +105,9 @@
 }
 
 .feature-section {
-  margin: 32px 0 0 0;
+  margin: 32px 24px 32px 24px;
   background: #fff;
+  height: 300px;
   border-radius: 20px;
   display: flex;
   justify-content: space-around;
@@ -198,4 +202,174 @@
 }
 .product-btn:hover {
   background: linear-gradient(90deg, #56ab2f 0%, #a8e063 100%);
+}
+
+.promotion-section {
+  margin: 36px 24px;
+  background: #fff;
+  border-radius: 14px;
+  border: 2px solid #2196f3;
+  padding: 32px 18px 32px 18px;
+}
+.promotion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #f2f2f2;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+}
+.promotion-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #222;
+}
+.promotion-timer {
+  background: #ff9800;
+  color: #fff;
+  border-radius: 24px;
+  padding: 8px 28px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.promotion-timer-label {
+  font-size: 16px;
+  margin-right: 8px;
+}
+.promotion-timer-count {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.promotion-viewall {
+  color: #7bc043;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none;
+  margin-left: 18px;
+}
+.promotion-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.promotion-arrow {
+  background: #fff;
+  border: 2px solid #7bc043;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+.promotion-arrow:hover {
+  background: #e8f5e9;
+  border: 2px solid #2196f3;
+}
+.promotion-products {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+  justify-content: center;
+}
+.promotion-product-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 18px 18px 12px 18px;
+  min-width: 220px;
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #eee;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+.promotion-product-card:hover {
+  box-shadow: 0 4px 18px rgba(33,150,243,0.12);
+  border: 1.5px solid #2196f3;
+}
+.promotion-product-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+.promotion-product-pack {
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 4px;
+}
+.promotion-product-pack span {
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 2px;
+}
+.promotion-progress {
+  width: 100%;
+  margin: 6px 0 10px 0;
+  position: relative;
+}
+.promotion-progress-bar {
+  width: 80%;
+  height: 10px;
+  background: linear-gradient(90deg, #7bc043 60%, #eee 100%);
+  border-radius: 8px;
+  margin: 0 auto;
+}
+.promotion-progress-label {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  font-size: 13px;
+  color: #222;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+.promotion-product-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+  margin: 8px 0 2px 0;
+  text-align: center;
+}
+.promotion-product-rating {
+  color: #ff9800;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.promotion-product-price {
+  color: #ff9800;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.promotion-product-price span {
+  font-size: 22px;
+  font-weight: bold;
+}
+.promotion-product-bottom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 13px;
+  color: #888;
+  margin-top: 6px;
+}
+.promotion-product-old {
+  text-decoration: line-through;
+  color: #bbb;
+}
+.promotion-product-exp {
+  color: #222;
+  font-weight: 500;
 } 
