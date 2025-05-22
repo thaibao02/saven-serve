@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cocacola from '../../Assets/cocacola.png';
 
 import { FaHeart, FaFire, FaShoppingCart, FaSearch, FaChevronDown } from 'react-icons/fa';
@@ -35,6 +35,9 @@ const products = [
 ];
 
 const Buy = () => {
+  const [cartCount, setCartCount] = useState(0);
+  const [likeCount, setLikeCount] = useState(0);
+
   return (
     <div className="buy-container">
       <div className="buy-sidebar">
@@ -54,8 +57,18 @@ const Buy = () => {
             <button><FaSearch /></button>
           </div>
           <div className="buy-icons">
-            <FaHeart style={{marginRight: 18}} />
-            <FaShoppingCart />
+            <div style={{position: 'relative', display: 'inline-block', marginRight: 18}}>
+              <FaHeart />
+              {likeCount > 0 && (
+                <span className="cart-badge">{likeCount}</span>
+              )}
+            </div>
+            <div style={{position: 'relative', display: 'inline-block'}}>
+              <FaShoppingCart />
+              {cartCount > 0 && (
+                <span className="cart-badge">{cartCount}</span>
+              )}
+            </div>
             <span className="buy-user">Datnx11</span>
           </div>
         </div>
@@ -63,7 +76,7 @@ const Buy = () => {
           {products.map((p, idx) => (
             <div className="buy-product-card" key={idx}>
               <div className="buy-product-badge">{p.badge}</div>
-              <div className="buy-product-like"><FaHeart color={p.liked ? '#7bc043' : '#bbb'} /></div>
+              <div className="buy-product-like" onClick={() => setLikeCount(likeCount + 1)}><FaHeart color={p.liked ? '#7bc043' : '#bbb'} /></div>
               <img src={p.img} alt={p.name} className="buy-product-img" />
               <div className="buy-product-pack">6 Lon  <span>320ML</span> </div>
               <div className="buy-product-progress">
@@ -75,7 +88,7 @@ const Buy = () => {
               <div className="buy-product-price"><span>{p.price}</span>{p.weight}</div>
               <div className="buy-product-bottom">
                 <span className="buy-product-old">{p.oldPrice}</span>
-                <button className="buy-product-cart"><FaShoppingCart style={{marginRight: 6}} /> Thêm vào giỏ hàng</button>
+                <button className="buy-product-cart" onClick={() => setCartCount(cartCount + 1)}><FaShoppingCart style={{marginRight: 6}} /> Thêm vào giỏ hàng</button>
               </div>
               <div className="buy-product-exp">{p.exp}</div>
             </div>

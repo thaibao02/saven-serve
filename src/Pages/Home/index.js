@@ -135,7 +135,7 @@ const Home = () => {
         <div className="promotion-slider">
           <button className="promotion-arrow left"><FaChevronLeft color="#7bc043" size={28} /></button>
           <div className="promotion-products">
-            {[1,2,3,4,5,6,7,8,9].map((item, idx) => (
+            {[1,2,3,4,5,6,7].map((item, idx) => (
               <div className="promotion-product-card" key={idx}>
                 <img src={cocacola} alt="Coca cola" className="promotion-product-img" />
                 <div className="promotion-product-pack">6 Lon <span>320ML</span></div>
