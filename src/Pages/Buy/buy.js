@@ -35,8 +35,39 @@ const products = [
 ];
 
 const Buy = () => {
-  const [cartCount, setCartCount] = useState(0);
+  const [cart, setCart] = useState([]); // [{product, quantity}]
   const [likeCount, setLikeCount] = useState(0);
+  const [showCart, setShowCart] = useState(false);
+
+  // Thêm vào giỏ hàng
+  const handleAddToCart = (product) => {
+    setCart(prev => {
+      const found = prev.find(item => item.product.name === product.name);
+      if (found) {
+        return prev.map(item =>
+          item.product.name === product.name
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [...prev, { product, quantity: 1 }];
+      }
+    });
+  };
+
+  // Tăng/giảm số lượng
+  const handleChangeQty = (product, delta) => {
+    setCart(prev => prev.map(item =>
+      item.product.name === product.name
+        ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+        : item
+    ));
+  };
+
+  // Tính tổng
+  const total = cart.reduce((sum, item) => sum + parseInt(item.product.price.replace(/\D/g, '')) * item.quantity, 0);
+  const shipping = cart.length > 0 ? 15000 : 0;
+  const grandTotal = total + shipping;
 
   return (
     <div className="buy-container">
@@ -63,10 +94,10 @@ const Buy = () => {
                 <span className="cart-badge">{likeCount}</span>
               )}
             </div>
-            <div style={{position: 'relative', display: 'inline-block'}}>
-              <FaShoppingCart />
-              {cartCount > 0 && (
-                <span className="cart-badge">{cartCount}</span>
+            <div style={{position: 'relative', display: 'inline-block'}} onClick={() => setShowCart(!showCart)}>
+              <FaShoppingCart style={{cursor: 'pointer'}} />
+              {cart.length > 0 && (
+                <span className="cart-badge">{cart.reduce((sum, item) => sum + item.quantity, 0)}</span>
               )}
             </div>
             <span className="buy-user">Datnx11</span>
@@ -88,13 +119,46 @@ const Buy = () => {
               <div className="buy-product-price"><span>{p.price}</span>{p.weight}</div>
               <div className="buy-product-bottom">
                 <span className="buy-product-old">{p.oldPrice}</span>
-                <button className="buy-product-cart" onClick={() => setCartCount(cartCount + 1)}><FaShoppingCart style={{marginRight: 6}} /> Thêm vào giỏ hàng</button>
+                <button className="buy-product-cart" onClick={() => handleAddToCart(p)}><FaShoppingCart style={{marginRight: 6}} /> Thêm vào giỏ hàng</button>
               </div>
               <div className="buy-product-exp">{p.exp}</div>
             </div>
           ))}
         </div>
       </div>
+      {/* Cart Modal */}
+      {showCart && (
+        <>
+          <div className="cart-modal-overlay" onClick={() => setShowCart(false)}></div>
+          <div className="cart-modal">
+            <button className="cart-modal-close" onClick={() => setShowCart(false)}>×</button>
+            <div className="cart-title">Hóa đơn</div>
+            <div className="cart-list">
+              {cart.map((item, idx) => (
+                <div className="cart-item" key={idx}>
+                  <img src={item.product.img} alt={item.product.name} className="cart-item-img" />
+                  <div className="cart-item-info">
+                    <div className="cart-item-name">{item.product.name}</div>
+                    <div className="cart-item-more">Thêm »</div>
+                  </div>
+                  <div className="cart-item-qty">
+                    <button onClick={() => handleChangeQty(item.product, -1)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => handleChangeQty(item.product, 1)}>+</button>
+                  </div>
+                  <div className="cart-item-price">{item.product.price}</div>
+                </div>
+              ))}
+            </div>
+            <div className="cart-bill">
+              <div className="cart-bill-row"><span>Đơn giá</span><span>{total.toLocaleString()} VND</span></div>
+              <div className="cart-bill-row"><span>Phí giao Hàng</span><span>{shipping.toLocaleString()} VND</span></div>
+              <div className="cart-bill-row cart-bill-total"><span>Thành tiền</span><span style={{color:'#ff9800', fontWeight:'bold', fontSize:22}}>{grandTotal.toLocaleString()} VND</span></div>
+              <button className="cart-checkout">Thanh toán</button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
