@@ -10,7 +10,7 @@ const Footer = () => {
           
         </div>
         <div className="footer-hours">
-          <span className="footer-hours-title">Giờ mở hoạt động</span>
+          <span className="footer-hours-title">Thời gian giao hàng</span>
           <span className="footer-hours-day">Thứ 2 - CN</span>
           <span className="footer-hours-time">08.00 am - 11.00 pm</span>
         </div>

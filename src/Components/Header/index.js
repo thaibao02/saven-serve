@@ -17,7 +17,7 @@ const Header = () => {
                     <li><a href="/Buy">Mua sắm</a></li>
                     <li><a href="/Info">Thông Tin</a></li>
                     <li><a href="/News">Tin Tức</a></li>
-                    <li><a href="/Contact">Liên Hệ</a></li>
+                    {/* <li><a href="/Contact">Liên Hệ</a></li> */}
                 </ul>
             </div>
             {/* phone icon and number */}
