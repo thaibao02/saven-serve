@@ -1,4 +1,3 @@
-import e from 'express';
 import {Schema , model} from 'mongoose';
 
 var User = new Schema({
