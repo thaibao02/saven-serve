@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Assuming you are using react-router-dom for navigation
+import './Register.css'; // Import the CSS file
 
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
@@ -36,10 +37,10 @@ const RegisterPage = () => {
     };
 
     return (
-        <div>
+        <div className="register-container">
             <h1>Trang Đăng ký</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="form-group">
                     <label htmlFor="username">Tên đăng nhập:</label>
                     <input
                         type="text"
@@ -49,7 +50,7 @@ const RegisterPage = () => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input
                         type="email"
@@ -59,7 +60,7 @@ const RegisterPage = () => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="password">Mật khẩu:</label>
                     <input
                         type="password"
@@ -71,7 +72,7 @@ const RegisterPage = () => {
                 </div>
                 <button type="submit">Đăng ký</button>
             </form>
-            {message && <p>{message}</p>}
+            {message && <p className={`message ${message.includes('thành công') ? 'success' : 'error'}`}>{message}</p>}
             <p>Đã có tài khoản? <Link to="/login-page">Đăng nhập</Link></p>
         </div>
     );
