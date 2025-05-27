@@ -1,4 +1,3 @@
-
 import { FaUser } from 'react-icons/fa';
 import logochinh from '../../Assets/logochinh.png';
 
@@ -22,7 +21,7 @@ const Header = () => {
                 </ul>
             </div>
             {/* phone icon and number */}
-            <a href="/login" className="phone">
+            <a href="/login-page" className="phone">
                 <FaUser style={{ color: 'white', fontSize: '20px', marginRight: '8px' }} />
                 <span style={{ color: 'white' }}>Tài khoản</span>
             </a>
