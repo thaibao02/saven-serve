@@ -1,4 +1,5 @@
-import { FiPhone } from 'react-icons/fi';
+
+import { FaUser } from 'react-icons/fa';
 import logochinh from '../../Assets/logochinh.png';
 
 const Header = () => {
@@ -21,10 +22,10 @@ const Header = () => {
                 </ul>
             </div>
             {/* phone icon and number */}
-            <div className="phone">
-                <FiPhone style={{ color: 'white', fontSize: '20px', marginRight: '8px' }} />
-                <span style={{ color: 'white' }}>+84 915 824 712</span>
-            </div>
+            <a href="/login" className="phone">
+                <FaUser style={{ color: 'white', fontSize: '20px', marginRight: '8px' }} />
+                <span style={{ color: 'white' }}>Tài khoản</span>
+            </a>
             
         </div>
     );
