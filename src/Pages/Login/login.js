@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './login.css'; // Import the CSS file
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,9 +23,15 @@ const LoginPage = () => {
             const data = await response.json();
 
             if (response.ok) {
+                // Lưu token vào localStorage
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
                 setMessage('Đăng nhập thành công!');
-                // Handle successful login (e.g., save token, redirect)
-                // navigate('/'); // Example redirect to home page
+                // Chuyển hướng về trang Home sau 1 giây
+                setTimeout(() => {
+                    navigate('/');
+                }, 1000);
             } else {
                 setMessage(data.message || 'Đăng nhập thất bại.');
             }

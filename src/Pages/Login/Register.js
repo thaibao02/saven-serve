@@ -25,8 +25,10 @@ const RegisterPage = () => {
 
             if (response.ok) {
                 setMessage('Đăng ký thành công! Vui lòng đăng nhập.');
-                // Optionally redirect to login page after successful registration
-                navigate('/login-page');
+                // Chuyển hướng đến trang đăng nhập sau 1.5 giây
+                setTimeout(() => {
+                    navigate('/login-page');
+                }, 1500);
             } else {
                 setMessage(data.message || 'Đăng ký thất bại.');
             }
