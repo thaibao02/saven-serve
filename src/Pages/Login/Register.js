@@ -26,7 +26,7 @@ const RegisterPage = () => {
             if (response.ok) {
                 setMessage('Đăng ký thành công! Vui lòng đăng nhập.');
                 // Optionally redirect to login page after successful registration
-                 navigate('/login-page');
+                navigate('/login-page');
             } else {
                 setMessage(data.message || 'Đăng ký thất bại.');
             }
@@ -38,7 +38,7 @@ const RegisterPage = () => {
 
     return (
         <div className="register-container">
-            <h1>Trang Đăng ký</h1>
+            <h1> Đăng ký</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="username">Tên đăng nhập:</label>
