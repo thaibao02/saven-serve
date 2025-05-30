@@ -100,7 +100,7 @@ const Buy = () => {
                 <span className="cart-badge">{cart.reduce((sum, item) => sum + item.quantity, 0)}</span>
               )}
             </div>
-            <span className="buy-user">Datnx11</span>
+            <span className="buy-user"></span>
           </div>
         </div>
         <div className="buy-products">

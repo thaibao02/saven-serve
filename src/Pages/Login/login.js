@@ -28,10 +28,19 @@ const LoginPage = () => {
                 localStorage.setItem('user', JSON.stringify(data.user));
                 
                 setMessage('Đăng nhập thành công!');
-                // Chuyển hướng về trang Home sau 1 giây
-                setTimeout(() => {
-                    navigate('/');
-                }, 1000);
+                // Check user role for redirection
+                const userRole = data.user.role;
+                if (userRole === 'owner') {
+                    // Redirect to owner dashboard
+                    setTimeout(() => {
+                        navigate('/owner-dashboard');
+                    }, 1000); // 1-second delay for message to show
+                } else {
+                    // Redirect to homepage for other roles (e.g., 'user')
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 1000); // 1-second delay for message to show
+                }
             } else {
                 setMessage(data.message || 'Đăng nhập thất bại.');
             }
