@@ -21,18 +21,18 @@ import './Home.css';
 import { GiPumpkin, GiGrapes, GiOrangeSlice } from 'react-icons/gi';
 import { FaChevronLeft, FaChevronRight, FaFire, FaUser, FaRegComment } from 'react-icons/fa';
 
-const categories = [
-  'Khuyến Mãi',
-  'Hàng Mới',
-  'Khuyến Mãi Trong Ngày',
-  'Trái Cây',
-  'Rau xanh',
-  'Đồ uống',
-  'Gia vị',
-  'Sữa',
-  'Thịt',
-  'Cá',
-];
+// const categories = [
+//   'Khuyến Mãi',
+//   'Hàng Mới',
+//   'Khuyến Mãi Trong Ngày',
+//   'Trái Cây',
+//   'Rau xanh',
+//   'Đồ uống',
+//   'Gia vị',
+//   'Sữa',
+//   'Thịt',
+//   'Cá',
+// ];
 
 const Home = () => {
   // Countdown timer state
@@ -56,11 +56,11 @@ const Home = () => {
   return (
     <div className='home'>
       <div className="home-container">
-        <div className="sidebar">
+        {/* <div className="sidebar">
           {categories.map((cat, idx) => (
             <div className="sidebar-item" key={idx}>{cat}</div>
           ))}
-        </div>
+        </div> */}
         <div className="banner-section" style={{ backgroundImage: `url(${banner})` }}>
           <div className="banner-content">
             <div className="banner-row">
