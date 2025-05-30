@@ -1,0 +1,157 @@
+.product-management-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-management-container h2 {
+    text-align: start;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.add-product-button {
+    margin: 0 auto 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.add-product-button:hover {
+    background-color: #0056b3;
+}
+
+.product-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.product-form div {
+    margin-bottom: 15px;
+}
+
+.product-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.product-form input[type="text"],
+.product-form input[type="number"],
+.product-form textarea,
+.product-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.product-form input[type="file"] {
+     padding-top: 5px;
+}
+
+.product-form button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.product-form button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
+
+.product-form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.product-form button[type="button"] {
+    background-color: #6c757d;
+    color: white;
+}
+
+.product-form button[type="button"]:hover {
+    background-color: #5a6268;
+}
+
+.success-message {
+    color: green;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Styles for the product list table */
+.product-list-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove space between borders */
+    margin-top: 20px;
+}
+
+.product-list-table th,
+.product-list-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left; /* Align text to the left */
+}
+
+.product-list-table th {
+    background-color: #f2f2f2; /* Light grey background for headers */
+    font-weight: bold;
+}
+
+.product-list-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row colors */
+}
+
+.product-list-table tbody tr:hover {
+    background-color: #e9e9e9; /* Highlight row on hover */
+}
+
+.product-list-table td button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.product-list-table td button:last-child {
+    margin-right: 0;
+}
+
+.product-list-table td button:first-of-type { /* Edit button */
+    background-color: #ffc107; /* Yellow for Edit */
+    color: #333;
+}
+
+.product-list-table td button:first-of-type:hover {
+    background-color: #e0a800;
+}
+
+.product-list-table td button:last-of-type { /* Delete button */
+    background-color: #dc3545; /* Red for Delete */
+    color: white;
+}
+
+.product-list-table td button:last-of-type:hover {
+    background-color: #c82333;
+}

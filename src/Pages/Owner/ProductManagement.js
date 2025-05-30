@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import './ProductManagement.css';
 
 const ProductManagement = () => {
     const [showForm, setShowForm] = useState(false);
@@ -10,6 +11,7 @@ const ProductManagement = () => {
         type: '', // Default type value
         images: null, // Will store selected files (FileList or Array)
     });
+    const [products, setProducts] = useState([]); // State to store the list of products
     const [submitMessage, setSubmitMessage] = useState('');
     const [isError, setIsError] = useState(false);
 
@@ -94,15 +96,80 @@ const ProductManagement = () => {
         }
     };
 
+    // Function to fetch products
+    const fetchProducts = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        try {
+            const response = await fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
+            }
+            const data = await response.json();
+            setProducts(data); // Assuming the backend returns an array of products
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            // Optionally display an error message to the user
+        }
+    };
+
+    // Fetch products on component mount
+    useEffect(() => {
+        fetchProducts();
+    }, []); // Empty dependency array means this runs once on mount
+
+    // Placeholder for Edit and Delete handlers
+    const handleEditClick = (productId) => {
+        console.log('Edit product with ID:', productId);
+        // TODO: Implement edit logic (e.g., show form pre-filled with product data)
+    };
+
+    const handleDeleteClick = async (productId) => {
+        console.log('Delete product with ID:', productId);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Vui lòng đăng nhập để xóa sản phẩm.'); // Or use a more sophisticated message system
+            return;
+        }
+
+        if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) { // Confirmation dialog
+            try {
+                const response = await fetch(`/api/products/${productId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message || 'Xóa sản phẩm thành công!'); // Success message
+                    fetchProducts(); // Refresh the product list
+                } else {
+                    alert(result.message || 'Lỗi khi xóa sản phẩm.'); // Error message
+                }
+            } catch (error) {
+                console.error('Error deleting product:', error);
+                alert('Đã xảy ra lỗi mạng hoặc máy chủ khi xóa sản phẩm.'); // Network/server error
+            }
+        }
+    };
+
     return (
-        <div>
+        <div className="product-management-container">
             <h2>Product Management</h2>
             {!showForm && (
-                <button onClick={handleAddProductClick}>Add Product</button>
+                <button className="add-product-button" onClick={handleAddProductClick}>Add Product</button>
             )}
 
             {showForm && (
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="product-form">
                     <h3>Thêm sản phẩm mới</h3>
                     <div>
                         <label htmlFor="name">Tên sản phẩm:</label>
@@ -140,6 +207,47 @@ const ProductManagement = () => {
             )}
             {submitMessage && (
                 <p className={isError ? 'error-message' : 'success-message'}>{submitMessage}</p>
+            )}
+
+            <h3>List Products</h3>
+            {products.length === 0 ? (
+                <p>No products found.</p>
+            ) : (
+                <table className="product-list-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {products.map(product => (
+                            <tr key={product._id}>
+                                <td>{product.name}</td>
+                                <td>{product.description}</td>
+                                <td>{product.type}</td>
+                                <td>{product.price}</td>
+                                <td>{product.stockQuantity}</td>
+                                <td>
+                                    {product.images && product.images.length > 0 ? (
+                                        <img src={`/${product.images[0]}`} alt={product.name} style={{ width: '50px', height: 'auto' }} />
+                                    ) : (
+                                        'No Image'
+                                    )}
+                                </td>
+                                <td>
+                                    <button onClick={() => handleEditClick(product._id)}>Edit</button>
+                                    <button onClick={() => handleDeleteClick(product._id)}>Delete</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             )}
         </div>
     );
