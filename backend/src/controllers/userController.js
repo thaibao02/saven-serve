@@ -101,4 +101,58 @@ export const login = async (req, res) => {
       error: error.message 
     });
   }
+};
+
+// Get user profile
+export const getProfile = async (req, res) => {
+    try {
+        // User ID is attached to the request by the auth middleware
+        const user = await User.findById(req.user.userId).select('-password'); // Exclude password
+        
+        if (!user) {
+            return res.status(404).json({ message: 'Không tìm thấy người dùng' });
+        }
+
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ 
+            message: 'Lỗi khi lấy thông tin hồ sơ', 
+            error: error.message 
+        });
+    }
+};
+
+// Update user profile
+export const updateProfile = async (req, res) => {
+    try {
+        const userId = req.user.userId; // Get user ID from authenticated request
+        const { username, email, password } = req.body; // Get updated data from request body
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Không tìm thấy người dùng' });
+        }
+
+        // Update user data
+        if (username) user.username = username;
+        if (email) user.email = email;
+        // If password is provided, let the pre('save') hook handle hashing
+        if (password) user.password = password;
+
+        // Save the updated user document (triggers pre('save') for password hashing)
+        await user.save();
+
+        // Exclude password from the response
+        const userResponse = user.toObject();
+        delete userResponse.password;
+
+        res.json(userResponse); // Return updated user data
+
+    } catch (error) {
+        res.status(500).json({ 
+            message: 'Lỗi khi cập nhật thông tin hồ sơ', 
+            error: error.message 
+        });
+    }
 }; 

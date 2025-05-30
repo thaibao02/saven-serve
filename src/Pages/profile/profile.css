@@ -1,0 +1,97 @@
+.profile-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.profile-container h1,
+.profile-edit-form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.profile-view p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.profile-view p strong {
+    display: inline-block;
+    width: 120px; /* Align labels */
+}
+
+.profile-view button {
+    display: block;
+    width: 150px;
+    margin: 20px auto 0;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.profile-view button:hover {
+    background-color: #0056b3;
+}
+
+.profile-edit-form div {
+    margin-bottom: 15px;
+}
+
+.profile-edit-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.profile-edit-form input[type="text"],
+.profile-edit-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.profile-edit-form button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.profile-edit-form button:first-of-type { /* Save button */
+    background-color: #28a745;
+    color: white;
+}
+
+.profile-edit-form button:first-of-type:hover {
+    background-color: #218838;
+}
+
+.profile-edit-form button:last-of-type { /* Cancel button */
+    background-color: #6c757d;
+    color: white;
+}
+
+.profile-edit-form button:last-of-type:hover {
+    background-color: #5a6268;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+    text-align: center;
+}
