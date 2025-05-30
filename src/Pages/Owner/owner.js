@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './owner.css'; // Import the CSS file
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import ProductManagement from './ProductManagement';
 
 // Import necessary icons from react-icons
 import { MdOutlineDashboard } from 'react-icons/md';
@@ -25,7 +26,7 @@ const OwnerDashboard = () => {
             case 'overview':
                 return <div>Overview Content</div>;
             case 'products':
-                return <div>Product Management Content</div>;
+                return <ProductManagement />;
             case 'bookings':
                 return <div>Booking Management Content</div>;
             case 'notifications':

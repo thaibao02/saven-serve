@@ -1,6 +1,6 @@
-import {Shemma, model , Types} from 'shema';
+import { Schema, model , Types} from 'mongoose';
 
-const Product = new Shemma ({
+const Product = new Schema ({
     owner : {
         type : Types.ObjectId,
         ref : 'User',
@@ -21,6 +21,11 @@ const Product = new Shemma ({
     stockQuantity : {
         type : Number,
         required: true
+    },
+    type: {
+        type: String,
+        required: true,
+        enum: ["Trái Cây", "Rau xanh", "Đố uống", "Gia vị ", "Sữa", "Thịt", "Cá"]
     },
     images: [{
         type: String,

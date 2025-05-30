@@ -2,6 +2,7 @@ import express from 'express';
 import { connect } from 'mongoose';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 
 const app = express();
 
@@ -20,6 +21,7 @@ connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/saven-serve', {
 // Routes
 
 app.use('/api', userRoutes);
+app.use('/api', productRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
