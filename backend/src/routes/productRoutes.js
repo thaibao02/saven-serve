@@ -27,9 +27,8 @@ router.post('/products', authenticate, upload.array('images', 10), createProduct
 // Protected route to get all products for the authenticated owner
 router.get('/products', authenticate, getProducts);
 
-// Protected route to update a product by ID (assuming no file upload in this update route)
-router.put('/products/:id', authenticate, updateProduct);
-// Or PATCH if you prefer partial updates: router.patch('/products/:id', authenticate, updateProduct);
+// Protected route to update a product by ID with file upload support
+router.put('/products/:id', authenticate, upload.array('images', 10), updateProduct);
 
 // Protected route to delete a product by ID
 router.delete('/products/:id', authenticate, deleteProduct);

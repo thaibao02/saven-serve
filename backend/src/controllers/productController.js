@@ -1,4 +1,6 @@
 import Product from '../models/Product.js';
+import fs from 'fs';
+import path from 'path';
 
 export const createProduct = async (req, res) => {
     try {
@@ -51,28 +53,60 @@ export const getProducts = async (req, res) => {
 // Update a product by ID
 export const updateProduct = async (req, res) => {
     try {
-        const owner = req.user.userId; // Get owner ID from authenticated user
-        const productId = req.params.id; // Get product ID from URL parameters
-        const updateData = req.body; // Get update data from request body
-       // Note: Handling file uploads for updates would require more complex logic here
-       // For simplicity, this update assumes no file uploads are part of this specific update endpoint
+        const owner = req.user.userId;
+        const productId = req.params.id;
+        const { name, description, price, stockQuantity, type } = req.body;
+        const newImages = req.files;
 
-        // Find the product by ID and owner, and update it
-        const product = await Product.findOneAndUpdate(
-            { _id: productId, owner }, // Find by product ID and owner ID
-            updateData,
-            { new: true, runValidators: true } // Return updated doc and run validators
-        );
+        // Validate required fields
+        if (!name || !description || !price || !stockQuantity || !type) {
+            return res.status(400).json({ message: 'Vui lòng cung cấp đầy đủ thông tin sản phẩm' });
+        }
 
+        // Find the product
+        const product = await Product.findOne({ _id: productId, owner });
         if (!product) {
             return res.status(404).json({ message: 'Không tìm thấy sản phẩm hoặc bạn không có quyền chỉnh sửa' });
         }
 
-        res.json({ message: 'Sản phẩm đã được cập nhật thành công', product });
+        // Update basic information
+        product.name = name;
+        product.description = description;
+        product.price = parseFloat(price);
+        product.stockQuantity = parseInt(stockQuantity);
+        product.type = type;
+        product.updatedAt = new Date();
+
+        // Handle image updates if new images are provided
+        if (newImages && newImages.length > 0) {
+            // Delete old images
+            if (product.images && product.images.length > 0) {
+                for (const oldImage of product.images) {
+                    const oldImagePath = path.join(process.cwd(), oldImage);
+                    if (fs.existsSync(oldImagePath)) {
+                        fs.unlinkSync(oldImagePath);
+                    }
+                }
+            }
+            
+            // Save new image paths
+            product.images = newImages.map(file => file.path);
+        }
+
+        // Save the updated product
+        await product.save();
+
+        res.json({ 
+            message: 'Sản phẩm đã được cập nhật thành công', 
+            product: product 
+        });
 
     } catch (error) {
         console.error('Error updating product:', error);
-        res.status(500).json({ message: 'Lỗi khi cập nhật sản phẩm', error: error.message });
+        res.status(500).json({ 
+            message: 'Lỗi khi cập nhật sản phẩm', 
+            error: error.message 
+        });
     }
 };
 
