@@ -89,13 +89,18 @@ const Buy = () => {
 
   useEffect(() => {
       if (orderMessage) {
+          // Set a timer to clear the message
           const timer = setTimeout(() => {
               setOrderMessage('');
-          }, 3000);
+              // If the message was the "please login" message, navigate after clearing
+              if (orderMessage === 'Vui lòng đăng nhập để đặt hàng.') {
+                  navigate('/login-page');
+              }
+          }, 3000); // Message visible for 3 seconds
 
           return () => clearTimeout(timer);
       }
-  }, [orderMessage]);
+  }, [orderMessage, navigate]); // Depend on orderMessage and navigate
 
   const handleSearchInputChange = (e) => {
     setSearchTerm(e.target.value);
@@ -162,13 +167,14 @@ const Buy = () => {
       console.log('Current cart state when placing order:', cart);
       const token = localStorage.getItem('token');
       if (!token) {
-          // User is not authenticated, show message and navigate to login
+          // User is not authenticated, show message
           setOrderMessage('Vui lòng đăng nhập để đặt hàng.');
           // Save current cart state to localStorage
           localStorage.setItem('savedCart', JSON.stringify(cart));
-          setTimeout(() => {
-              navigate('/login-page');
-          }, 2000); // Navigate to login after 2 seconds
+          // Navigation will be handled by useEffect when orderMessage is set
+          // setTimeout(() => {
+          //     navigate('/login-page');
+          // }, 2000); // Navigate to login after 2 seconds
           return;
       }
 
