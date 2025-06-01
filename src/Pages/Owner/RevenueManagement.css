@@ -1,0 +1,39 @@
+.revenue-management-container {
+    padding: 20px;
+}
+
+.revenue-management-container h2 {
+    margin-bottom: 20px;
+}
+
+.revenue-management-container label {
+    margin-right: 10px;
+}
+
+.revenue-summary {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.revenue-summary h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.revenue-summary p {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #28a745; /* Green color for revenue */
+}
+
+/* Basic styling for the chart container (if added later) */
+.chart-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}

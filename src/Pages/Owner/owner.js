@@ -3,6 +3,7 @@ import './owner.css'; // Import the CSS file
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import ProductManagement from './ProductManagement';
 import OrderManagement from './OrderManagement';
+import RevenueManagement from './RevenueManagement'; // Import RevenueManagement
 // Import necessary icons from react-icons
 import { MdOutlineDashboard } from 'react-icons/md';
 import { AiOutlineInbox } from 'react-icons/ai';
@@ -32,7 +33,7 @@ const OwnerDashboard = () => {
             case 'notifications':
                 return <div>Notification Content</div>;
             case 'revenue':
-                return <div>Revenue Content</div>;
+                return <RevenueManagement />;
             default:
                 return <div>Select a menu item</div>;
         }

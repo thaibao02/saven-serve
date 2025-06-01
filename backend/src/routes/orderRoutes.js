@@ -1,5 +1,5 @@
 import express from 'express';
-import { createOrder, getOrders, getAllOrders, updateOrderStatus } from '../controllers/orderController.js';
+import { createOrder, getOrders, getAllOrders, updateOrderStatus, getRevenue } from '../controllers/orderController.js';
 import { authenticate } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -15,5 +15,8 @@ router.get('/orders/all', authenticate, getAllOrders);
 
 // Protected route to update order status (for admin/owner)
 router.put('/orders/:id/status', authenticate, updateOrderStatus);
+
+// Protected route to get revenue data (for admin/owner)
+router.get('/orders/revenue', authenticate, getRevenue);
 
 export default router; 

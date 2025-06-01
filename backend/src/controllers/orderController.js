@@ -2,6 +2,7 @@ import Order from '../models/Order.js';
 import Product from '../models/Product.js';
 import User from '../models/user.js';
 import mongoose from 'mongoose'; // Import mongoose
+import { startOfDay, startOfWeek, startOfMonth, startOfYear, subMonths, subQuarters, subYears } from 'date-fns'; // Only import date calculation functions
 
 // Create a new order
 export const createOrder = async (req, res) => {
@@ -156,5 +157,83 @@ export const updateOrderStatus = async (req, res) => {
     } catch (error) {
         console.error('Error updating order status:', error);
         res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+// Get revenue data based on period for charting
+export const getRevenue = async (req, res) => {
+    console.log(`Received GET request to /api/orders/revenue with query: ${JSON.stringify(req.query)}`);
+    try {
+        const { period = 'month' } = req.query;
+
+        let startDate;
+        const now = new Date();
+        let groupFormat; // MongoDB aggregation format string
+
+        switch (period) {
+            case 'day':
+                startDate = startOfDay(now);
+                 groupFormat = '%Y-%m-%dT%H:00:00.000Z'; // Group by hour (ISO 8601)
+                break;
+            case 'week':
+                startDate = startOfWeek(now, { weekStartsOn: 1 });
+                 groupFormat = '%Y-%m-%dT00:00:00.000Z'; // Group by day
+                break;
+            case 'month':
+                startDate = startOfMonth(now);
+                 groupFormat = '%Y-%m-%dT00:00:00.000Z'; // Group by day
+                break;
+            case 'quarter':
+                const currentMonth = now.getMonth();
+                const quarter = Math.floor(currentMonth / 3);
+                startDate = new Date(now.getFullYear(), quarter * 3, 1);
+                 startDate = startOfMonth(startDate);
+                 groupFormat = '%Y-%m-01T00:00:00.000Z'; // Group by month
+                break;
+            case 'year':
+                startDate = startOfYear(now);
+                 groupFormat = '%Y-%m-01T00:00:00.000Z'; // Group by month
+                break;
+            case 'last3months':
+                startDate = subMonths(startOfMonth(now), 3);
+                 groupFormat = '%Y-%m-01T00:00:00.000Z'; // Group by month
+                break;
+            case 'lastyear':
+                startDate = subYears(startOfYear(now), 1);
+                 groupFormat = '%Y-%m-01T00:00:00.000Z'; // Group by month
+                break;
+            default:
+                 startDate = startOfMonth(now);
+                 groupFormat = '%Y-%m-%dT00:00:00.000Z'; // Default to day for monthly view
+        }
+
+        console.log('Calculating revenue from:', startDate, 'grouping by:', groupFormat);
+
+        const revenueData = await Order.aggregate([
+            {
+                $match: {
+                    status: 'Delivered',
+                    createdAt: { $gte: startDate }
+                }
+            },
+            {
+                $group: {
+                    _id: { $dateToString: { format: groupFormat, date: '$createdAt' } },
+                    dailyRevenue: { $sum: '$totalAmount' }
+                }
+            },
+            {
+                $sort: { _id: 1 } // Sort by the grouped date/time string
+            }
+        ]);
+
+        console.log('Aggregated raw revenue data:', revenueData);
+
+        // Return the raw aggregated data, frontend will handle intervals and formatting
+        res.status(200).json({ period, aggregatedData: revenueData, startDate, endDate: now, groupFormat });
+
+    } catch (error) {
+        console.error('Error fetching revenue data:', error);
+        res.status(500).json({ message: 'Server Error', error: error.message });
     }
 }; 
