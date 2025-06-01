@@ -101,4 +101,60 @@ export const getOrders = async (req, res) => {
         console.error('Error fetching orders:', error);
         res.status(500).json({ message: 'Lỗi khi lấy danh sách đơn hàng', error: error.message });
     }
+};
+
+// Get all orders (for owner)
+export const getAllOrders = async (req, res) => {
+    console.log('Received GET request to /api/orders/all');
+    try {
+        const orders = await Order.find()
+            .populate('user', 'name phoneNumber address') // Populate user details
+            .populate('items.product', 'name imageUrl price'); // Populate product details
+
+        console.log('Fetched and populated orders:', orders);
+
+        // Log details of items to check product data
+        orders.forEach(order => {
+            order.items.forEach(item => {
+                console.log('Populated Item Product:', item.product);
+            });
+        });
+
+        res.status(200).json(orders);
+    } catch (error) {
+        console.error('Error fetching all orders:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+// Update order status (for owner)
+export const updateOrderStatus = async (req, res) => {
+    console.log(`Received PUT request to /api/orders/${req.params.id}/status`);
+    try {
+        const orderId = req.params.id;
+        const { status } = req.body;
+
+        // Validate the new status (optional but recommended)
+        const validStatuses = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({ message: 'Invalid order status' });
+        }
+
+        const updatedOrder = await Order.findByIdAndUpdate(
+            orderId,
+            { status: status },
+            { new: true } // Return the updated document
+        )
+        .populate('user', 'name phoneNumber address') // Populate user details in response
+        .populate('items.product', 'name imageUrl price'); // Populate product details in response
+
+        if (!updatedOrder) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        res.status(200).json(updatedOrder);
+    } catch (error) {
+        console.error('Error updating order status:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
 }; 

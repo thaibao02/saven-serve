@@ -58,7 +58,9 @@ const Orders = () => {
                 return '#ff9800';
             case 'Processing':
                 return '#2196f3';
-            case 'Completed':
+            case 'Shipped':
+                return '#03a9f4';
+            case 'Delivered':
                 return '#4caf50';
             case 'Cancelled':
                 return '#f44336';
