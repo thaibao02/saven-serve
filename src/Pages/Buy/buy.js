@@ -1,51 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cocacola from '../../Assets/cocacola.png';
 
-import { FaHeart, FaFire, FaShoppingCart, FaSearch, FaChevronDown } from 'react-icons/fa';
+import { FaHeart, FaFire, FaShoppingCart, FaSearch } from 'react-icons/fa';
 
 const categories = [
-  'Khuyến Mãi', 'Hàng Mới', 'Khuyến Mãi Trong Ngày', 'Trái Cây', 'Rau xanh', 'Đồ uống', 'Gia vị', 'Sữa', 'Thịt', 'Cá'
-];
-
-const products = [
-  {
-    img: cocacola,
-    name: 'Coca cola',
-    price: '7.000 VND',
-    oldPrice: '10.000 VND',
-    weight: '/Lon',
-    badge: '-30%',
-    exp: 'HSD: Còn 3 tháng',
-    hot: true,
-    liked: true,
-  },
-  
-  // Thêm các sản phẩm cocacola cho đủ grid
-  ...Array(16).fill({
-    img: cocacola,
-    name: 'Coca cola',
-    price: '7.000 VND',
-    oldPrice: '10.000 VND',
-    weight: '/Lon',
-    badge: '-30%',
-    exp: 'HSD: Còn 3 tháng',
-    hot: true,
-    liked: false,
-  })
+   'Hàng Mới', 'Trái Cây', 'Rau xanh', 'Đồ uống', 'Gia vị', 'Sữa', 'Thịt', 'Cá'
 ];
 
 const Buy = () => {
-  const [cart, setCart] = useState([]); // [{product, quantity}]
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
   const [likeCount, setLikeCount] = useState(0);
   const [showCart, setShowCart] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Thêm vào giỏ hàng
+  useEffect(() => {
+    const fetchProducts = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.log('User not authenticated. Cannot fetch products.');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
+            }
+
+            const data = await response.json();
+            setProducts(data);
+        } catch (err) {
+            setError(err.message);
+            console.error('Error fetching products:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchProducts();
+  }, []);
+
   const handleAddToCart = (product) => {
     setCart(prev => {
-      const found = prev.find(item => item.product.name === product.name);
+      const found = prev.find(item => item.product._id === product._id);
       if (found) {
         return prev.map(item =>
-          item.product.name === product.name
+          item.product._id === product._id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -55,19 +64,33 @@ const Buy = () => {
     });
   };
 
-  // Tăng/giảm số lượng
   const handleChangeQty = (product, delta) => {
-    setCart(prev => prev.map(item =>
-      item.product.name === product.name
-        ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-        : item
-    ));
+    setCart(prev => prev.map(item => {
+      if (item.product._id === product._id) {
+        const currentQty = item.quantity;
+        const stockQty = product.stockQuantity; // Get stock quantity from the product object
+
+        if (delta === 1) {
+          // If increasing, check against stock quantity
+          const newQty = currentQty + 1;
+          return { ...item, quantity: newQty <= stockQty ? newQty : currentQty }; // Only increase if new quantity is within stock
+        } else if (delta === -1) {
+          // If decreasing, ensure quantity is at least 1
+          return { ...item, quantity: Math.max(1, currentQty + delta) };
+        }
+      }
+      return item; // Return item unchanged if not the target product
+    }));
   };
 
-  // Tính tổng
-  const total = cart.reduce((sum, item) => sum + parseInt(item.product.price.replace(/\D/g, '')) * item.quantity, 0);
+  const total = cart.reduce((sum, item) => sum + parseFloat(item.product.price) * item.quantity, 0);
   const shipping = cart.length > 0 ? 15000 : 0;
   const grandTotal = total + shipping;
+
+  const handleLikeClick = (productId) => {
+      console.log('Like/Unlike product with ID:', productId);
+      setLikeCount(prevCount => prevCount + 1);
+  };
 
   return (
     <div className="buy-container">
@@ -80,9 +103,7 @@ const Buy = () => {
       </div>
       <div className="buy-main">
         <div className="buy-header">
-          <button className="buy-filter-btn">
-            Danh mục <FaChevronDown style={{marginLeft: 8}} />
-          </button>
+          
           <div className="buy-search">
             <input placeholder="Tìm kiếm sản phẩm..." />
             <button><FaSearch /></button>
@@ -103,28 +124,40 @@ const Buy = () => {
             <span className="buy-user"></span>
           </div>
         </div>
-        <div className="buy-products">
-          {products.map((p, idx) => (
-            <div className="buy-product-card" key={idx}>
-              <div className="buy-product-badge">{p.badge}</div>
-              <div className="buy-product-like" onClick={() => setLikeCount(likeCount + 1)}><FaHeart color={p.liked ? '#7bc043' : '#bbb'} /></div>
-              <img src={p.img} alt={p.name} className="buy-product-img" />
-              <div className="buy-product-pack">6 Lon  <span>320ML</span> </div>
-              <div className="buy-product-progress">
-                <div className="buy-product-progress-bar"></div>
-                <span className="buy-product-progress-label">Sắp cháy hàng <FaFire color="#ff5722" size={16} style={{marginLeft: 4}} /></span>
-              </div>
-              <div className="buy-product-name">{p.name}</div>
-              <div className="buy-product-rating">★ ★ ★ ★ ★</div>
-              <div className="buy-product-price"><span>{p.price}</span>{p.weight}</div>
-              <div className="buy-product-bottom">
-                <span className="buy-product-old">{p.oldPrice}</span>
-                <button className="buy-product-cart" onClick={() => handleAddToCart(p)}><FaShoppingCart style={{marginRight: 6}} /> Thêm vào giỏ hàng</button>
-              </div>
-              <div className="buy-product-exp">{p.exp}</div>
+
+        {loading ? (
+            <div>Đang tải sản phẩm...</div>
+        ) : error ? (
+            <div>Lỗi khi tải sản phẩm: {error}</div>
+        ) : (
+            <div className="buy-products">
+              {products.map((p) => (
+                <div className="buy-product-card" key={p._id}>
+                  {p.badge && <div className="buy-product-badge">{p.badge}</div>}
+                  <div className="buy-product-like" onClick={() => handleLikeClick(p._id)}><FaHeart color={p.liked ? '#7bc043' : '#bbb'} /></div>
+                  <img src={`/${p.images && p.images.length > 0 ? p.images[0] : cocacola}`} alt={p.name} className="buy-product-img" />
+                  <div className="buy-product-pack">{p.name}</div>
+                  {/* <div className="buy-product-progress">
+                    <div className="buy-product-progress-bar"></div>
+                    <span className="buy-product-progress-label">Sắp cháy hàng <FaFire color="#ff5722" size={16} style={{marginLeft: 4}} /></span>
+                  </div> */}
+                  <div className="buy-product-name">{p.description}</div>
+                  <div className="buy-product-rating">★ ★ ★ ★ ★</div>
+                  <div className="buy-product-price"><span>{parseFloat(p.price).toLocaleString()} VND</span>{p.weight || ''}</div>
+                  
+                  {/* Display stock quantity */}
+                  <div className="buy-product-stock">Còn hàng: {p.stockQuantity}</div>
+
+                  <div className="buy-product-bottom">
+                    {p.oldPrice && <span className="buy-product-old">{parseFloat(p.oldPrice).toLocaleString()} VND</span>}
+                    <button className="buy-product-cart" onClick={() => handleAddToCart(p)}><FaShoppingCart style={{marginRight: 6}} /> Thêm vào giỏ hàng</button>
+                  </div>
+                  {p.exp && <div className="buy-product-exp">{p.exp}</div>}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+        )}
+
       </div>
       {/* Cart Modal */}
       {showCart && (
@@ -134,9 +167,9 @@ const Buy = () => {
             <button className="cart-modal-close" onClick={() => setShowCart(false)}>×</button>
             <div className="cart-title">Hóa đơn</div>
             <div className="cart-list">
-              {cart.map((item, idx) => (
-                <div className="cart-item" key={idx}>
-                  <img src={item.product.img} alt={item.product.name} className="cart-item-img" />
+              {cart.map((item) => (
+                <div className="cart-item" key={item.product._id}> 
+                  <img src={`/${item.product.images && item.product.images.length > 0 ? item.product.images[0] : cocacola}`} alt={item.product.name} className="cart-item-img" />
                   <div className="cart-item-info">
                     <div className="cart-item-name">{item.product.name}</div>
                     <div className="cart-item-more">Thêm »</div>
@@ -146,7 +179,7 @@ const Buy = () => {
                     <span>{item.quantity}</span>
                     <button onClick={() => handleChangeQty(item.product, 1)}>+</button>
                   </div>
-                  <div className="cart-item-price">{item.product.price}</div>
+                  <div className="cart-item-price">{parseFloat(item.product.price).toLocaleString()} VND</div>
                 </div>
               ))}
             </div>

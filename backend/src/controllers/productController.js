@@ -38,12 +38,13 @@ export const createProduct = async (req, res) => {
     }
 };
 
-// Get all products for the authenticated owner
+// Get all products (for the buy page)
 export const getProducts = async (req, res) => {
     try {
-        const owner = req.user.userId; // Get owner ID from authenticated user
-        const products = await Product.find({ owner }); // Find products by owner ID
-        res.json(products); // Return the list of products
+        // Fetch all products
+        const products = await Product.find({}); // Find all products
+
+        res.json(products); // Return the list of all products
     } catch (error) {
         console.error('Error fetching products:', error);
         res.status(500).json({ message: 'Lỗi khi lấy danh sách sản phẩm', error: error.message });

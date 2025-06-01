@@ -19,20 +19,22 @@ function Layout() {
   const isOwnerDashboard = location.pathname === '/owner-dashboard';
 
   return (
-    <>
+    <div className="app-container">
       {!isOwnerDashboard && <Header />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Buy" element={<Buy />} />
-        <Route path="/Info" element={<Info />} />
-        <Route path="/login-page" element={<LoginPage />} />
-        <Route path="/register-page" element={<RegisterPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/owner-dashboard" element={<OwnerDashboard />} />
-        {/* Add other routes here */}
-      </Routes>
+      <main className="content-wrap">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Buy" element={<Buy />} />
+          <Route path="/Info" element={<Info />} />
+          <Route path="/login-page" element={<LoginPage />} />
+          <Route path="/register-page" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/owner-dashboard" element={<OwnerDashboard />} />
+          {/* Add other routes here */}
+        </Routes>
+      </main>
       {!isOwnerDashboard && <Footer />}
-    </>
+    </div>
   );
 }
 

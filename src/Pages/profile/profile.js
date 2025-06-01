@@ -7,7 +7,13 @@ const ProfilePage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        phone: '',
+        address: '',
+        password: '' // Add password for update form
+    });
     const navigate = useNavigate();
 
     // Fetch user profile data
@@ -38,8 +44,14 @@ const ProfilePage = () => {
 
                 const data = await response.json();
                 setUserData(data);
-                // Initialize form data with fetched user data
-                setFormData({ username: data.username, email: data.email });
+                // Initialize form data with fetched user data including new fields
+                setFormData({
+                    username: data.username,
+                    email: data.email,
+                    phone: data.phone || '', // Use || '' to handle null/undefined
+                    address: data.address || '',
+                    password: '' // Password field is initially empty
+                });
             } catch (err) {
                 setError(err.message);
                 console.error('Error fetching profile:', err);
@@ -61,7 +73,13 @@ const ProfilePage = () => {
         setIsEditing(true);
         // Re-initialize form data in case user cancelled previous edit
         if (userData) {
-             setFormData({ username: userData.username, email: userData.email });
+             setFormData({
+                username: userData.username,
+                email: userData.email,
+                phone: userData.phone || '',
+                address: userData.address || '',
+                password: ''
+            });
         }
     };
 
@@ -70,7 +88,13 @@ const ProfilePage = () => {
         setIsEditing(false);
         // Optionally reset form data to original user data
          if (userData) {
-             setFormData({ username: userData.username, email: userData.email });
+             setFormData({
+                username: userData.username,
+                email: userData.email,
+                phone: userData.phone || '',
+                address: userData.address || '',
+                password: ''
+            });
          }
     };
 
@@ -95,6 +119,7 @@ const ProfilePage = () => {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
+                // Send all formData fields including phone and address
                 body: JSON.stringify(formData),
             });
 
@@ -160,6 +185,27 @@ const ProfilePage = () => {
                             onChange={handleInputChange}
                         />
                     </div>
+                    {/* Add Phone and Address input fields */}
+                    <div>
+                        <label htmlFor="phone">Số điện thoại:</label>
+                        <input 
+                            type="text" 
+                            id="phone" 
+                            name="phone"
+                            value={formData.phone || ''}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="address">Địa chỉ:</label>
+                        <input 
+                            type="text" 
+                            id="address" 
+                            name="address"
+                            value={formData.address || ''}
+                            onChange={handleInputChange}
+                        />
+                    </div>
                     <div>
                         <label htmlFor="password">Mật khẩu (Để trống nếu không đổi):</label>
                         <input
@@ -179,7 +225,9 @@ const ProfilePage = () => {
                 <div className="profile-view"> {/* Class for styling */}
                     <p><strong>Tên đăng nhập:</strong> {userData.username}</p>
                     <p><strong>Email:</strong> {userData.email}</p>
-                    {/* Password should not be displayed directly */}
+                    {/* Display Phone and Address */}
+                    <p><strong>Số điện thoại:</strong> {userData.phone || 'Chưa cập nhật'}</p>
+                    <p><strong>Địa chỉ:</strong> {userData.address || 'Chưa cập nhật'}</p>
                     <button onClick={handleUpdateClick}>Cập nhật hồ sơ</button>
                 </div>
             )}

@@ -5,6 +5,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 .logo img {
@@ -258,7 +263,7 @@
 }
 .buy-products {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 28px;
 }
 .buy-product-card {
@@ -636,4 +641,26 @@
     min-width: 0;
     padding: 18px 2vw 32px 2vw;
   }
+}
+
+/* Add styles to the main container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Make the container at least the full viewport height */
+}
+
+/* Make the content area grow to push the footer down */
+.content-wrap {
+  flex-grow: 1;
+  padding-top: 120px;
+  /* Optional: Add padding to the content if needed */
+  /* padding-bottom: 50px; */ /* Example: add padding to prevent content from being hidden by footer */
+}
+
+/* Ensure body and html also take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }

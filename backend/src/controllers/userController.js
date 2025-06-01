@@ -125,8 +125,10 @@ export const getProfile = async (req, res) => {
 // Update user profile
 export const updateProfile = async (req, res) => {
     try {
-        const userId = req.user.userId; // Get user ID from authenticated request
-        const { username, email, password } = req.body; // Get updated data from request body
+        const userId = req.user.userId;
+        const { username, email, password, phone, address } = req.body; // Add phone and address
+
+        console.log('Update Profile Request Body:', req.body);
 
         const user = await User.findById(userId);
 
@@ -137,17 +139,19 @@ export const updateProfile = async (req, res) => {
         // Update user data
         if (username) user.username = username;
         if (email) user.email = email;
-        // If password is provided, let the pre('save') hook handle hashing
         if (password) user.password = password;
+        
+        // Update phone and address if provided
+        if (phone !== undefined) user.phone = phone; // Use !== undefined to allow empty string
+        if (address !== undefined) user.address = address; // Use !== undefined to allow empty string
 
-        // Save the updated user document (triggers pre('save') for password hashing)
         await user.save();
 
         // Exclude password from the response
         const userResponse = user.toObject();
         delete userResponse.password;
 
-        res.json(userResponse); // Return updated user data
+        res.json(userResponse);
 
     } catch (error) {
         res.status(500).json({ 
