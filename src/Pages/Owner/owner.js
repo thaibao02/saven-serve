@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './owner.css'; // Import the CSS file
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import ProductManagement from './ProductManagement';
-
+import OrderManagement from './OrderManagement';
 // Import necessary icons from react-icons
 import { MdOutlineDashboard } from 'react-icons/md';
 import { AiOutlineInbox } from 'react-icons/ai';
@@ -27,8 +27,8 @@ const OwnerDashboard = () => {
                 return <div>Overview Content</div>;
             case 'products':
                 return <ProductManagement />;
-            case 'bookings':
-                return <div>Booking Management Content</div>;
+            case 'orders':
+                return <OrderManagement />
             case 'notifications':
                 return <div>Notification Content</div>;
             case 'revenue':
@@ -60,9 +60,9 @@ const OwnerDashboard = () => {
                          <AiOutlineInbox className="menu-icon" />
                          Product management
                     </li>
-                    <li onClick={() => handleMenuItemClick('bookings')} className={activeMenuItem === 'bookings' ? 'active' : ''}>
+                    <li onClick={() => handleMenuItemClick('orders')} className={activeMenuItem === 'orders' ? 'active' : ''}>
                          <FaRegCalendarCheck className="menu-icon" />
-                         Booking management
+                         Order management
                     </li>
                     <li onClick={() => handleMenuItemClick('notifications')} className={activeMenuItem === 'notifications' ? 'active' : ''}>
                          <IoMdNotificationsOutline className="menu-icon" />
