@@ -11,6 +11,7 @@ import LoginPage from './Pages/Login/login';
 import RegisterPage from './Pages/Login/Register';
 import ProfilePage from './Pages/profile/profile';
 import OwnerDashboard from './Pages/Owner/owner';
+import Orders from './Pages/Orders/Orders';
 
 // import Contact from "./Pages/Contact/contact";
 
@@ -30,6 +31,7 @@ function Layout() {
           <Route path="/register-page" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/owner-dashboard" element={<OwnerDashboard />} />
+          <Route path="/orders" element={<Orders />} />
           {/* Add other routes here */}
         </Routes>
       </main>

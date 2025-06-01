@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import cocacola from '../../Assets/cocacola.png';
 
 import { FaHeart, FaFire, FaShoppingCart, FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const categories = [
    'Hàng Mới', 'Trái Cây', 'Rau xanh', 'Đồ uống', 'Gia vị', 'Sữa', 'Thịt', 'Cá'
@@ -16,40 +17,59 @@ const Buy = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Hàng Mới');
+  const [orderMessage, setOrderMessage] = useState('');
+  const navigate = useNavigate();
+
+  const fetchProducts = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+          console.log('User not authenticated. Cannot fetch products.');
+          setLoading(false);
+          return;
+      }
+
+      setLoading(true);
+      setError(null);
+
+      try {
+          const response = await fetch('/api/products', {
+              headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+              },
+          });
+
+          if (!response.ok) {
+              throw new Error('Failed to fetch products');
+          }
+
+          const data = await response.json();
+          setProducts(data);
+      } catch (err) {
+          setError(err.message);
+          console.error('Error fetching products:', err);
+      } finally {
+          setLoading(false);
+      }
+  };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            console.log('User not authenticated. Cannot fetch products.');
-            setLoading(false);
-            return;
-        }
-
-        try {
-            const response = await fetch('/api/products', {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch products');
-            }
-
-            const data = await response.json();
-            setProducts(data);
-        } catch (err) {
-            setError(err.message);
-            console.error('Error fetching products:', err);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+      console.log('Cart state changed:', cart);
+  }, [cart]);
+
+  useEffect(() => {
+      if (orderMessage) {
+          const timer = setTimeout(() => {
+              setOrderMessage('');
+          }, 3000);
+
+          return () => clearTimeout(timer);
+      }
+  }, [orderMessage]);
 
   const handleSearchInputChange = (e) => {
     setSearchTerm(e.target.value);
@@ -90,7 +110,7 @@ const Buy = () => {
 
         if (delta === 1) {
           const newQty = currentQty + 1;
-          return { ...item, quantity: newQty <= stockQty ? newQty : currentQty };
+          return { ...item, quantity: (stockQty === undefined || newQty <= stockQty) ? newQty : currentQty };
         } else if (delta === -1) {
           return { ...item, quantity: Math.max(1, currentQty + delta) };
         }
@@ -106,6 +126,68 @@ const Buy = () => {
   const handleLikeClick = (productId) => {
       console.log('Like/Unlike product with ID:', productId);
       setLikeCount(prevCount => prevCount + 1);
+  };
+
+  const handlePlaceOrder = async () => {
+      console.log('Current cart state when placing order:', cart);
+      const token = localStorage.getItem('token');
+      if (!token) {
+          navigate('/login-page');
+          return;
+      }
+
+      if (cart.length === 0) {
+          setOrderMessage('Giỏ hàng trống. Vui lòng thêm sản phẩm để đặt hàng.');
+          return;
+      }
+
+      try {
+          const orderItems = cart.map(item => ({
+              product: item.product ? item.product._id : null, 
+              quantity: item.quantity,
+              price: parseFloat(item.product.price) 
+          }));
+
+          const hasInvalidItem = orderItems.some(item => item.product === null);
+          if (hasInvalidItem) {
+              setOrderMessage('Thông tin sản phẩm trong giỏ hàng không hợp lệ. Vui lòng kiểm tra lại giỏ hàng.');
+              console.error('Invalid product ID found in cart:', cart);
+              return;
+          }
+
+          console.log('Sending order items to backend:', orderItems);
+          orderItems.forEach((item, index) => {
+              console.log(`Item ${index}:`, item);
+          });
+
+          const response = await fetch('/api/orders', {
+              method: 'POST',
+              headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ items: orderItems, totalAmount: grandTotal }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+              setOrderMessage(result.message || 'Đặt hàng thành công!');
+              setCart([]);
+              setShowCart(false);
+              
+              fetchProducts();
+
+              setTimeout(() => {
+                  navigate('/orders');
+              }, 2000);
+          } else {
+              setOrderMessage(result.message || 'Lỗi khi đặt hàng.');
+          }
+      } catch (error) {
+          console.error('Error placing order:', error);
+          setOrderMessage('Đã xảy ra lỗi mạng hoặc máy chủ khi đặt hàng.');
+      }
   };
 
   return (
@@ -210,11 +292,18 @@ const Buy = () => {
               <div className="cart-bill-row"><span>Đơn giá</span><span>{total.toLocaleString()} VND</span></div>
               <div className="cart-bill-row"><span>Phí giao Hàng</span><span>{shipping.toLocaleString()} VND</span></div>
               <div className="cart-bill-row cart-bill-total"><span>Thành tiền</span><span style={{color:'#ff9800', fontWeight:'bold', fontSize:22}}>{grandTotal.toLocaleString()} VND</span></div>
-              <button className="cart-checkout">Đặt hàng</button>
+              <button className="cart-checkout" onClick={handlePlaceOrder}>Đặt hàng</button>
             </div>
           </div>
         </>
       )}
+       {orderMessage && (
+           <div className="order-message-overlay">
+               <div className="order-message-modal">
+                   <p>{orderMessage}</p>
+               </div>
+           </div>
+       )}
     </div>
   );
 }

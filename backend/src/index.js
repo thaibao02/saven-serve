@@ -3,6 +3,7 @@ import { connect } from 'mongoose';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import productRoutes from './routes/productRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -32,6 +33,7 @@ connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/saven-serve', {
 
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
+app.use('/api', orderRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
