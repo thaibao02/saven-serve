@@ -62,7 +62,26 @@ const Buy = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+    // Check for saved cart in localStorage on mount
+    const savedCart = localStorage.getItem('savedCart');
+    if (savedCart) {
+      try {
+        const parsedCart = JSON.parse(savedCart);
+        // Basic validation: ensure it's an array and has product objects
+        if (Array.isArray(parsedCart) && parsedCart.every(item => item.product && item.product._id)) {
+          setCart(parsedCart);
+          setShowCart(true); // Open the cart modal if a saved cart is loaded
+          localStorage.removeItem('savedCart'); // Clear saved cart from localStorage
+        } else {
+          console.error('Invalid saved cart data found in localStorage.');
+          localStorage.removeItem('savedCart'); // Clear invalid data
+        }
+      } catch (e) {
+        console.error('Error parsing saved cart from localStorage:', e);
+        localStorage.removeItem('savedCart'); // Clear problematic data
+      }
+    }
+  }, []); // Empty dependency array to run only on mount
 
   useEffect(() => {
       console.log('Cart state changed:', cart);
@@ -145,6 +164,8 @@ const Buy = () => {
       if (!token) {
           // User is not authenticated, show message and navigate to login
           setOrderMessage('Vui lòng đăng nhập để đặt hàng.');
+          // Save current cart state to localStorage
+          localStorage.setItem('savedCart', JSON.stringify(cart));
           setTimeout(() => {
               navigate('/login-page');
           }, 2000); // Navigate to login after 2 seconds
