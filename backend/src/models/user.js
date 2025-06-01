@@ -16,6 +16,14 @@ const User = new Schema({
     required: true,
     unique: true
   },
+  phone: {
+    type: String,
+    required: false // Hoặc true nếu bắt buộc
+  },
+  address: {
+    type: String,
+    required: false // Hoặc true nếu bắt buộc
+  },
   role: {
     type: String,
     enum: ['user', 'owner'],

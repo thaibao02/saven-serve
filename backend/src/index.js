@@ -16,7 +16,9 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Correct path to the uploads directory
+const uploadsPath = path.join(__dirname, '..', 'uploads');
+app.use('/uploads', express.static(uploadsPath));
 
 // MongoDB Connection
 connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/saven-serve', {

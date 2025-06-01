@@ -359,7 +359,7 @@ const ProductManagement = () => {
                                 <td>
                                     {product.images && product.images.length > 0 ? (
                                         <img 
-                                            src={`/${product.images[0]}`} 
+                                            src={`${product.images[0]}`} 
                                             alt={product.name} 
                                             style={{ width: '50px', height: 'auto' }} 
                                         />
