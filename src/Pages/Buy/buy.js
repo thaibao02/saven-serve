@@ -88,6 +88,10 @@ const Buy = () => {
 
   const filteredProducts = products
     .filter(product => 
+      // Filter by stock quantity > 0
+      product.stockQuantity > 0
+    )
+    .filter(product => 
       selectedCategory === 'Hàng Mới' || product.type === selectedCategory
     )
     .filter(product =>
@@ -201,6 +205,10 @@ const Buy = () => {
       }
   };
 
+  const handleRemoveItem = (productId) => {
+    setCart(prev => prev.filter(item => item.product._id !== productId));
+  };
+
   return (
     <div className="buy-container">
       <div className="buy-sidebar">
@@ -296,6 +304,7 @@ const Buy = () => {
                     <button onClick={() => handleChangeQty(item.product, 1)}>+</button>
                   </div>
                   <div className="cart-item-price">{parseFloat(item.product.price).toLocaleString()} VND</div>
+                  <button style={{backgroundColor: 'red', color: '#fff', border: 'none', cursor: 'pointer', fontSize: 20}} className="cart-item-remove" onClick={() => handleRemoveItem(item.product._id)}>×</button>
                 </div>
               ))}
             </div>
