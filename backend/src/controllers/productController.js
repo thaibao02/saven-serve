@@ -38,9 +38,11 @@ export const createProduct = async (req, res) => {
     }
 };
 
-// Get all products (for the buy page)
+// Get all products or products by owner
 export const getProducts = async (req, res) => {
+    console.log('Received GET request to /api/products');
     try {
+        const ownerId = req.query.ownerId; // Check if ownerId is provided in query params
         // Fetch all products
         const products = await Product.find({}); // Find all products
 

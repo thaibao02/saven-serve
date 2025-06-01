@@ -25,7 +25,8 @@ const upload = multer({ storage: storage });
 router.post('/products', authenticate, upload.array('images', 10), createProduct);
 
 // Protected route to get all products for the authenticated owner
-router.get('/products', authenticate, getProducts);
+// REMOVE authenticate middleware to make this route public
+router.get('/products', getProducts);
 
 // Protected route to update a product by ID with file upload support
 router.put('/products/:id', authenticate, upload.array('images', 10), updateProduct);

@@ -22,24 +22,31 @@ const Buy = () => {
 
   const fetchProducts = async () => {
       const token = localStorage.getItem('token');
-      if (!token) {
-          console.log('User not authenticated. Cannot fetch products.');
-          setLoading(false);
-          return;
-      }
+      // Remove token check here so products are fetched even if not authenticated
+      // if (!token) {
+      //     console.log('User not authenticated. Cannot fetch products.');
+      //     setLoading(false);
+      //     return;
+      // }
 
-      setLoading(true);
-      setError(null);
+      setLoading(true); // Set loading to true before fetching
+      setError(null); // Clear previous errors
 
       try {
           const response = await fetch('/api/products', {
               headers: {
-                  'Authorization': `Bearer ${token}`,
+                  // Conditionally include Authorization header if token exists
+                  // 'Authorization': token ? `Bearer ${token}` : '',
                   'Content-Type': 'application/json',
+                  ...(token && { 'Authorization': `Bearer ${token}` }), // Add header only if token exists
               },
           });
 
           if (!response.ok) {
+              // Handle cases where backend might still require auth or return error
+              // console.error('Failed to fetch products non-authenticated', response.status);
+               // Depending on backend setup, non-auth might result in 401/403,
+               // but our current /api/products is public GET.
               throw new Error('Failed to fetch products');
           }
 
@@ -132,7 +139,11 @@ const Buy = () => {
       console.log('Current cart state when placing order:', cart);
       const token = localStorage.getItem('token');
       if (!token) {
-          navigate('/login-page');
+          // User is not authenticated, show message and navigate to login
+          setOrderMessage('Vui lòng đăng nhập để đặt hàng.');
+          setTimeout(() => {
+              navigate('/login-page');
+          }, 2000); // Navigate to login after 2 seconds
           return;
       }
 
