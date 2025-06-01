@@ -255,8 +255,8 @@ const RevenueManagement = () => {
             <div>
                 <label htmlFor="period-select">Chọn thời gian:</label>
                 <select id="period-select" value={selectedPeriod} onChange={handlePeriodChange}>
-                    <option value="day">Theo ngày</option>
-                    <option value="week">Theo tuần</option>
+                    {/* <option value="day">Theo ngày</option>
+                    <option value="week">Theo tuần</option> */}
                     <option value="month">Theo tháng</option>
                     <option value="quarter">Theo quý</option>
                     <option value="year">Theo năm</option>

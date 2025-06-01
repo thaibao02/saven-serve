@@ -4,23 +4,23 @@ import User from '../models/user.js';
 import mongoose from 'mongoose'; // Import mongoose
 import { startOfDay, startOfWeek, startOfMonth, startOfYear, subMonths, subQuarters, subYears } from 'date-fns'; // Only import date calculation functions
 
+const SHIPPING_FEE = 15000; // Define shipping fee
+
 // Create a new order
 export const createOrder = async (req, res) => {
     console.log('Received POST request to /api/orders');
     try {
         const userId = req.user.userId; // Get user ID from authenticated request
-        const { items, totalAmount } = req.body;
+        const { items, totalAmount } = req.body; // totalAmount from frontend is not used for final calculation
 
         // Basic validation
         if (!items || items.length === 0) {
             return res.status(400).json({ message: 'Giỏ hàng trống' });
         }
-        if (totalAmount === undefined || totalAmount <= 0) {
-             return res.status(400).json({ message: 'Tổng tiền không hợp lệ' });
-        }
+        // totalAmount validation removed as it's now calculated on backend
 
         let orderItems = [];
-        let calculatedTotal = 0;
+        let calculatedItemsTotal = 0; // Calculate total from item prices and quantities
 
         // Validate items and update stock
         for (const item of items) {
@@ -33,15 +33,25 @@ export const createOrder = async (req, res) => {
             if (!product) {
                 // Revert stock changes for previous items if any
                 for(const prevItem of orderItems) {
-                    await Product.findByIdAndUpdate(prevItem.product, { $inc: { stockQuantity: prevItem.quantity } });
+                    // Find the product by ID to ensure correct stock update
+                    const prevProduct = await Product.findById(prevItem.product);
+                    if (prevProduct) {
+                        prevProduct.stockQuantity += prevItem.quantity;
+                        await prevProduct.save();
+                    }
                 }
-                return res.status(404).json({ message: `Sản phẩm ${item.product.name || item.product._id} không tồn tại` });
+                return res.status(404).json({ message: `Sản phẩm ${item.product.name || productId} không tồn tại` }); // Use productId if name is not available
             }
 
             if (product.stockQuantity < item.quantity) {
                  // Revert stock changes for previous items if any
                  for(const prevItem of orderItems) {
-                     await Product.findByIdAndUpdate(prevItem.product, { $inc: { stockQuantity: prevItem.quantity } });
+                     // Find the product by ID to ensure correct stock update
+                      const prevProduct = await Product.findById(prevItem.product);
+                     if (prevProduct) {
+                         prevProduct.stockQuantity += prevItem.quantity;
+                         await prevProduct.save();
+                     }
                  }
                 return res.status(400).json({ message: `Không đủ số lượng cho sản phẩm ${product.name}` });
             }
@@ -52,23 +62,22 @@ export const createOrder = async (req, res) => {
 
             // Add item to order items
             orderItems.push({
-                // Create ObjectId from the string ID
-                product: new mongoose.Types.ObjectId(productId), 
+                // Create ObjectId from the string ID if it's a string, otherwise use directly
+                product: mongoose.Types.ObjectId.isValid(productId) ? new mongoose.Types.ObjectId(productId) : productId, 
                 quantity: item.quantity,
                 price: product.price // Use current product price for order item
             });
-            calculatedTotal += product.price * item.quantity;
+            calculatedItemsTotal += product.price * item.quantity; // Calculate total from items
         }
 
-        // Optional: Check if calculated total matches the totalAmount sent from frontend
-        // This can help prevent tampering, but might need tolerance for floating point issues.
-        // For simplicity, we'll trust the frontend totalAmount for now or recalculate on backend.
+        // Calculate final total including shipping fee
+        const finalTotalAmount = calculatedItemsTotal + SHIPPING_FEE;
 
         // Create new order
         const newOrder = new Order({
             user: userId,
             items: orderItems,
-            totalAmount: calculatedTotal, // Use calculated total for accuracy
+            totalAmount: finalTotalAmount, // Use final calculated total
             // You might want to get shipping address from user profile or request body
             // shippingAddress: req.body.shippingAddress || user.address,
             status: 'Pending' // Default status
