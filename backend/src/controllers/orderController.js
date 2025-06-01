@@ -108,7 +108,7 @@ export const getAllOrders = async (req, res) => {
     console.log('Received GET request to /api/orders/all');
     try {
         const orders = await Order.find()
-            .populate('user', 'name phoneNumber address') // Populate user details
+            .populate('user', 'name phone address') // Populate user details
             .populate('items.product', 'name imageUrl price'); // Populate product details
 
         console.log('Fetched and populated orders:', orders);
@@ -145,7 +145,7 @@ export const updateOrderStatus = async (req, res) => {
             { status: status },
             { new: true } // Return the updated document
         )
-        .populate('user', 'name phoneNumber address') // Populate user details in response
+        .populate('user', 'name phone address') // Populate user details in response
         .populate('items.product', 'name imageUrl price'); // Populate product details in response
 
         if (!updatedOrder) {

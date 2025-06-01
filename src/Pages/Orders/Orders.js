@@ -91,7 +91,7 @@ const Orders = () => {
                         <div key={order._id} className="order-card">
                             <div className="order-header">
                                 <div className="order-info">
-                                    <span className="order-id">Mã đơn hàng: {order._id}</span>
+                                    <div className="order-placed"><b>Đã đặt hàng</b></div>
                                     <span className="order-date">{formatDate(order.createdAt)}</span>
                                 </div>
                                 <div 

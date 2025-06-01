@@ -64,10 +64,7 @@ const OwnerDashboard = () => {
                          <FaRegCalendarCheck className="menu-icon" />
                          Order management
                     </li>
-                    <li onClick={() => handleMenuItemClick('notifications')} className={activeMenuItem === 'notifications' ? 'active' : ''}>
-                         <IoMdNotificationsOutline className="menu-icon" />
-                         Notification
-                    </li>
+                    
                     <li onClick={() => handleMenuItemClick('revenue')} className={activeMenuItem === 'revenue' ? 'active' : ''}>
                          <HiOutlineCurrencyDollar className="menu-icon" />
                          Revenue

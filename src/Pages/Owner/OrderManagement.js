@@ -131,7 +131,7 @@ const OrderManagement = () => {
                                         <>
                                             <td rowSpan={order.items.length}>{order._id}</td> {/* Use rowSpan */}
                                             <td rowSpan={order.items.length}>{order.user?.name || 'N/A'}</td>
-                                            <td rowSpan={order.items.length}>{order.user?.phoneNumber || 'N/A'}</td>
+                                            <td rowSpan={order.items.length}>{order.user?.phone || 'N/A'}</td>
                                             <td rowSpan={order.items.length}>{order.user?.address || 'N/A'}</td>
                                         </>
                                     )}
