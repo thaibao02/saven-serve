@@ -53,10 +53,10 @@ const OwnerDashboard = () => {
             <div className="sidebar">
                 <h2>Owner Dashboard</h2>
                 <ul>
-                    <li onClick={() => handleMenuItemClick('overview')} className={activeMenuItem === 'overview' ? 'active' : ''}>
+                    {/* <li onClick={() => handleMenuItemClick('overview')} className={activeMenuItem === 'overview' ? 'active' : ''}>
                         <MdOutlineDashboard className="menu-icon" />
                         Overview
-                    </li>
+                    </li> */}
                     <li onClick={() => handleMenuItemClick('products')} className={activeMenuItem === 'products' ? 'active' : ''}>
                          <AiOutlineInbox className="menu-icon" />
                          Product management
