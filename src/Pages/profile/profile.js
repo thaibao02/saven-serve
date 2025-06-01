@@ -10,6 +10,7 @@ const ProfilePage = () => {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
+        name: '',
         phone: '',
         address: '',
         password: '' // Add password for update form
@@ -48,6 +49,7 @@ const ProfilePage = () => {
                 setFormData({
                     username: data.username,
                     email: data.email,
+                    name: data.name || '', // Use || '' to handle null/undefined
                     phone: data.phone || '', // Use || '' to handle null/undefined
                     address: data.address || '',
                     password: '' // Password field is initially empty
@@ -76,6 +78,7 @@ const ProfilePage = () => {
              setFormData({
                 username: userData.username,
                 email: userData.email,
+                name: userData.name || '', // Use || '' to handle null/undefined
                 phone: userData.phone || '',
                 address: userData.address || '',
                 password: ''
@@ -91,6 +94,7 @@ const ProfilePage = () => {
              setFormData({
                 username: userData.username,
                 email: userData.email,
+                name: userData.name || '', // Use || '' to handle null/undefined
                 phone: userData.phone || '',
                 address: userData.address || '',
                 password: ''
@@ -185,6 +189,16 @@ const ProfilePage = () => {
                             onChange={handleInputChange}
                         />
                     </div>
+                    <div>
+                        <label htmlFor="name">Họ và tên:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={formData.name || ''}
+                            onChange={handleInputChange}
+                        />
+                    </div>
                     {/* Add Phone and Address input fields */}
                     <div>
                         <label htmlFor="phone">Số điện thoại:</label>
@@ -225,6 +239,7 @@ const ProfilePage = () => {
                 <div className="profile-view"> {/* Class for styling */}
                     <p><strong>Tên đăng nhập:</strong> {userData.username}</p>
                     <p><strong>Email:</strong> {userData.email}</p>
+                    <p><strong>Họ và tên:</strong> {userData.name || 'Chưa cập nhật'}</p>
                     {/* Display Phone and Address */}
                     <p><strong>Số điện thoại:</strong> {userData.phone || 'Chưa cập nhật'}</p>
                     <p><strong>Địa chỉ:</strong> {userData.address || 'Chưa cập nhật'}</p>

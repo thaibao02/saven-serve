@@ -126,7 +126,7 @@ export const getProfile = async (req, res) => {
 export const updateProfile = async (req, res) => {
     try {
         const userId = req.user.userId;
-        const { username, email, password, phone, address } = req.body; // Add phone and address
+        const { username, email,name, password, phone, address } = req.body; // Add phone and address
 
         console.log('Update Profile Request Body:', req.body);
 
@@ -140,7 +140,7 @@ export const updateProfile = async (req, res) => {
         if (username) user.username = username;
         if (email) user.email = email;
         if (password) user.password = password;
-        
+        if (name) user.name = name; // Update name if provided
         // Update phone and address if provided
         if (phone !== undefined) user.phone = phone; // Use !== undefined to allow empty string
         if (address !== undefined) user.address = address; // Use !== undefined to allow empty string

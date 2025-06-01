@@ -16,6 +16,10 @@ const User = new Schema({
     required: true,
     unique: true
   },
+  name: {
+    type: String,
+    required: false // Hoặc true nếu bắt buộc
+  },
   phone: {
     type: String,
     required: false // Hoặc true nếu bắt buộc
