@@ -239,7 +239,7 @@ const ProfilePage = () => {
                 <div className="profile-view"> {/* Class for styling */}
                     <p><strong>Tên đăng nhập:</strong> {userData.username}</p>
                     <p><strong>Email:</strong> {userData.email}</p>
-                    <p><strong>Họ và tên:</strong> {userData.name || 'Chưa cập nhật'}</p>
+                    <p><strong>Họ và tên:</strong> {userData.name}</p>
                     {/* Display Phone and Address */}
                     <p><strong>Số điện thoại:</strong> {userData.phone || 'Chưa cập nhật'}</p>
                     <p><strong>Địa chỉ:</strong> {userData.address || 'Chưa cập nhật'}</p>
