@@ -16,6 +16,7 @@ const ProductManagement = () => {
     const [products, setProducts] = useState([]);
     const [submitMessage, setSubmitMessage] = useState('');
     const [isError, setIsError] = useState(false);
+    const [selectedFilterType, setSelectedFilterType] = useState('');
 
     const productTypes = ["Trái Cây", "Rau xanh", "Đố uống", "Gia vị ", "Sữa", "Thịt", "Cá"];
 
@@ -248,6 +249,22 @@ const ProductManagement = () => {
                 <button className="add-product-button" onClick={handleAddProductClick}>Add Product</button>
             )}
 
+            {/* Filter Dropdown */}
+            <div className="filter-container" style={{ marginBottom: '20px' }}>
+                <label htmlFor="productFilter"><b>Lọc theo loại:</b></label>
+                <select 
+                    id="productFilter" 
+                    value={selectedFilterType} 
+                    onChange={(e) => setSelectedFilterType(e.target.value)}
+                    style={{ marginLeft: '10px', padding: '5px' }}
+                >
+                    <option value="">Tất cả</option>
+                    {productTypes.map((type) => (
+                        <option key={type} value={type}>{type}</option>
+                    ))}
+                </select>
+            </div>
+
             {showForm && (
                 <form onSubmit={handleSubmit} className="product-form">
                     <h3>{isEditing ? 'Cập nhật sản phẩm' : 'Thêm sản phẩm mới'}</h3>
@@ -349,30 +366,32 @@ const ProductManagement = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map(product => (
-                            <tr key={product._id}>
-                                <td>{product.name}</td>
-                                <td>{product.description}</td>
-                                <td>{product.type}</td>
-                                <td>{product.price}</td>
-                                <td>{product.stockQuantity}</td>
-                                <td>
-                                    {product.images && product.images.length > 0 ? (
-                                        <img 
-                                            src={`${product.images[0]}`} 
-                                            alt={product.name} 
-                                            style={{ width: '50px', height: 'auto' }} 
-                                        />
-                                    ) : (
-                                        'Không có ảnh'
-                                    )}
-                                </td>
-                                <td>
-                                    <button onClick={() => handleEditClick(product._id)}>Sửa</button>
-                                    <button onClick={() => handleDeleteClick(product._id)}>Xóa</button>
-                                </td>
-                            </tr>
-                        ))}
+                        {products
+                            .filter(product => selectedFilterType === '' || product.type === selectedFilterType)
+                            .map(product => (
+                                <tr key={product._id}>
+                                    <td>{product.name}</td>
+                                    <td>{product.description}</td>
+                                    <td>{product.type}</td>
+                                    <td>{product.price}</td>
+                                    <td>{product.stockQuantity}</td>
+                                    <td>
+                                        {product.images && product.images.length > 0 ? (
+                                            <img 
+                                                src={`${product.images[0]}`} 
+                                                alt={product.name} 
+                                                style={{ width: '50px', height: 'auto' }} 
+                                            />
+                                        ) : (
+                                            'Không có ảnh'
+                                        )}
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleEditClick(product._id)}>Sửa</button>
+                                        <button onClick={() => handleDeleteClick(product._id)}>Xóa</button>
+                                    </td>
+                                </tr>
+                            ))}
                     </tbody>
                 </table>
             )}

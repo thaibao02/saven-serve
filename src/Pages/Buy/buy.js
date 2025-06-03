@@ -5,7 +5,7 @@ import { FaHeart, FaFire, FaShoppingCart, FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const categories = [
-   'Hàng Mới', 'Trái Cây', 'Rau xanh', 'Đồ uống', 'Gia vị', 'Sữa', 'Thịt', 'Cá'
+   'Hàng Mới', 'Trái Cây', 'Rau xanh', 'Đố uống', 'Gia vị ', 'Sữa', 'Thịt', 'Cá'
 ];
 
 const Buy = () => {
