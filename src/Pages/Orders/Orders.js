@@ -105,15 +105,19 @@ const Orders = () => {
                             <div className="order-items">
                                 {order.items.map((item) => (
                                     <div key={item._id} className="order-item">
-                                        <img 
-                                            src={`/${item.product.images[0]}`} 
-                                            alt={item.product.name}
-                                            className="order-item-image"
-                                        />
+                                        {item.product && item.product.images && item.product.images.length > 0 ? (
+                                            <img 
+                                                src={`/${item.product.images[0]}`} 
+                                                alt={item.product ? item.product.name : 'Product Image'}
+                                                className="order-item-image"
+                                            />
+                                        ) : (
+                                            <div className="order-item-image-placeholder">No Image</div>
+                                        )}
                                         <div className="order-item-details">
-                                            <h3>{item.product.name}</h3>
+                                            <h3>{item.product ? item.product.name : 'Unknown Product'}</h3>
                                             <p>Số lượng: {item.quantity}</p>
-                                            <p>Giá: {parseFloat(item.price).toLocaleString()} VND</p>
+                                            <p>Giá: {item.product ? parseFloat(item.price).toLocaleString() : 'N/A'} VND</p>
                                         </div>
                                     </div>
                                 ))}
