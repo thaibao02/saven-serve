@@ -5,10 +5,8 @@ import ProductManagement from './ProductManagement';
 import OrderManagement from './OrderManagement';
 import RevenueManagement from './RevenueManagement'; // Import RevenueManagement
 // Import necessary icons from react-icons
-import { MdOutlineDashboard } from 'react-icons/md';
 import { AiOutlineInbox } from 'react-icons/ai';
 import { FaRegCalendarCheck } from 'react-icons/fa';
-import { IoMdNotificationsOutline } from 'react-icons/io';
 import { HiOutlineCurrencyDollar } from 'react-icons/hi';
 import { BiLogOut } from 'react-icons/bi'; // Import a logout icon
 

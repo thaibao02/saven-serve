@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cocacola from '../../Assets/cocacola.png';
 
-import { FaHeart, FaFire, FaShoppingCart, FaSearch } from 'react-icons/fa';
+import { FaHeart, FaShoppingCart, FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const categories = [
