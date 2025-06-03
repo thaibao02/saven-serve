@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './profile.css'; // Import the CSS file
 
 const ProfilePage = () => {
@@ -16,7 +16,7 @@ const ProfilePage = () => {
         password: '' // Add password for update form
     });
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
 
     // Check if we have a saved cart in localStorage
     useEffect(() => {

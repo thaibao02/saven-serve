@@ -326,7 +326,7 @@ const Buy = () => {
                     <button className="buy-product-cart" onClick={() => handleAddToCart(p)}><FaShoppingCart style={{marginRight: 6}} /> Thêm vào giỏ hàng</button>
                   </div>
                   {p.exp && <div className="buy-product-exp">{p.exp}</div>}
-                  <div className="buy-product-stock">Còn hàng: {p.stockQuantity}</div>
+                  <div className="buy-product-stock">Số lượng: {p.stockQuantity}</div>
                 </div>
               ))}
             </div>
