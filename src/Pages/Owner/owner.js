@@ -72,7 +72,7 @@ const OwnerDashboard = () => {
                     </li>
                     <li onClick={handleLogout} className="logout-item">
                         <BiLogOut className="menu-icon" />
-                        Đăng xuất
+                        Log out
                     </li>
                 </ul>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './profile.css'; // Import the CSS file
 
 const ProfilePage = () => {
@@ -16,6 +16,16 @@ const ProfilePage = () => {
         password: '' // Add password for update form
     });
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Check if we have a saved cart in localStorage
+    useEffect(() => {
+        const savedCart = localStorage.getItem('savedCart');
+        if (savedCart) {
+            // If we have a saved cart, automatically enter edit mode
+            setIsEditing(true);
+        }
+    }, []);
 
     // Fetch user profile data
     useEffect(() => {
@@ -139,6 +149,15 @@ const ProfilePage = () => {
             // Optionally update user data in localStorage if needed elsewhere
              localStorage.setItem('user', JSON.stringify(updatedUserData));
 
+            // Check if we have a saved cart
+            const savedCart = localStorage.getItem('savedCart');
+            if (savedCart) {
+                // If we have a saved cart, navigate back to buy page
+                setTimeout(() => {
+                    navigate('/Buy');
+                }, 1000);
+            }
+
         } catch (err) {
             setError(err.message);
             console.error('Error updating profile:', err);
@@ -190,34 +209,37 @@ const ProfilePage = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="name">Họ và tên:</label>
+                        <label htmlFor="name">Họ và tên: <span style={{color: 'red'}}>*</span></label>
                         <input
                             type="text"
                             id="name"
                             name="name"
                             value={formData.name || ''}
                             onChange={handleInputChange}
+                            required
                         />
                     </div>
                     {/* Add Phone and Address input fields */}
                     <div>
-                        <label htmlFor="phone">Số điện thoại:</label>
+                        <label htmlFor="phone">Số điện thoại: <span style={{color: 'red'}}>*</span></label>
                         <input 
                             type="text" 
                             id="phone" 
                             name="phone"
                             value={formData.phone || ''}
                             onChange={handleInputChange}
+                            required
                         />
                     </div>
                     <div>
-                        <label htmlFor="address">Địa chỉ:</label>
+                        <label htmlFor="address">Địa chỉ: <span style={{color: 'red'}}>*</span></label>
                         <input 
                             type="text" 
                             id="address" 
                             name="address"
                             value={formData.address || ''}
                             onChange={handleInputChange}
+                            required
                         />
                     </div>
                     <div>
@@ -239,7 +261,7 @@ const ProfilePage = () => {
                 <div className="profile-view"> {/* Class for styling */}
                     <p><strong>Tên đăng nhập:</strong> {userData.username}</p>
                     <p><strong>Email:</strong> {userData.email}</p>
-                    <p><strong>Họ và tên:</strong> {userData.name}</p>
+                    <p><strong>Họ và tên:</strong> {userData.name || 'Chưa cập nhật'}</p>
                     <p><strong>Số điện thoại:</strong> {userData.phone || 'Chưa cập nhật'}</p>
                     <p><strong>Địa chỉ:</strong> {userData.address || 'Chưa cập nhật'}</p>
                     <button onClick={handleUpdateClick}>Cập nhật hồ sơ</button>

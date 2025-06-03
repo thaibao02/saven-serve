@@ -171,10 +171,6 @@ const Buy = () => {
           setOrderMessage('Vui lòng đăng nhập để đặt hàng.');
           // Save current cart state to localStorage
           localStorage.setItem('savedCart', JSON.stringify(cart));
-          // Navigation will be handled by useEffect when orderMessage is set
-          // setTimeout(() => {
-          //     navigate('/login-page');
-          // }, 2000); // Navigate to login after 2 seconds
           return;
       }
 
@@ -184,6 +180,32 @@ const Buy = () => {
       }
 
       try {
+          // First check user profile information
+          const profileResponse = await fetch('/api/profile', {
+              headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+              },
+          });
+
+          if (!profileResponse.ok) {
+              throw new Error('Failed to fetch profile information');
+          }
+
+          const userData = await profileResponse.json();
+          
+          // Check if required fields are filled
+          if (!userData.name || !userData.phone || !userData.address) {
+              setOrderMessage('Vui lòng cập nhật đầy đủ thông tin cá nhân (Họ tên, Số điện thoại, Địa chỉ) trước khi đặt hàng.');
+              // Save cart state before redirecting
+              localStorage.setItem('savedCart', JSON.stringify(cart));
+              // Navigate to profile page after a short delay
+              setTimeout(() => {
+                  navigate('/profile');
+              }, 2000);
+              return;
+          }
+
           const orderItems = cart.map(item => ({
               product: item.product ? item.product._id : null, 
               quantity: item.quantity,
