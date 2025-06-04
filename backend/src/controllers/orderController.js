@@ -1,8 +1,8 @@
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
-import User from '../models/user.js';
+// import User from '../models/user.js';
 import mongoose from 'mongoose'; // Import mongoose
-import { startOfDay, startOfWeek, startOfMonth, startOfYear, subMonths, subQuarters, subYears } from 'date-fns'; // Only import date calculation functions
+import { startOfDay, startOfWeek, startOfMonth, startOfYear, subMonths, subYears } from 'date-fns'; // Only import date calculation functions
 
 const SHIPPING_FEE = 15000; // Define shipping fee
 
@@ -11,7 +11,7 @@ export const createOrder = async (req, res) => {
     console.log('Received POST request to /api/orders');
     try {
         const userId = req.user.userId; // Get user ID from authenticated request
-        const { items, totalAmount } = req.body; // totalAmount from frontend is not used for final calculation
+        const { items } = req.body; // totalAmount from frontend is not used for final calculation
 
         // Basic validation
         if (!items || items.length === 0) {

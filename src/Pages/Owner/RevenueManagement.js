@@ -5,8 +5,8 @@ import { Bar } from 'react-chartjs-2'; // Import Bar chart component
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'; // Import Chart.js components
 
 // Import date-fns functions from the main library, excluding locale
-import { format, startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfQuarter, endOfQuarter, startOfYear, endOfYear, eachHourOfInterval, eachDayOfInterval, eachMonthOfInterval, isWithinInterval } from 'date-fns';
-import { vi } from 'date-fns/locale'; // Import Vietnamese locale separately
+import { format, endOfDay, endOfMonth, eachHourOfInterval, eachDayOfInterval, eachMonthOfInterval } from 'date-fns';
+import vi from 'date-fns/locale/vi';
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -65,7 +65,7 @@ const RevenueManagement = () => {
     const processedChartData = useMemo(() => {
         if (!revenueData) return { labels: [], data: [] };
 
-        const { period, aggregatedData, startDate, endDate } = revenueData;
+        const { period, startDate, endDate } = revenueData;
         const start = new Date(startDate);
         const end = new Date(endDate);
 
@@ -165,7 +165,7 @@ const RevenueManagement = () => {
 
         return { labels, data, tooltipFormat, totalRevenue };
 
-    }, [revenueData, selectedPeriod]); // Recalculate when revenueData or selectedPeriod changes
+    }, [revenueData]); // Remove selectedPeriod from dependencies as it's not used in the calculation
 
     // Prepare data for the chart using processed data
     const chartData = {
