@@ -6,7 +6,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 
 // Import date-fns functions from the main library, excluding locale
 import { format, endOfDay, endOfMonth, eachHourOfInterval, eachDayOfInterval, eachMonthOfInterval } from 'date-fns';
-import vi from 'date-fns/locale/vi';
+import { vi } from 'date-fns/locale';
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
