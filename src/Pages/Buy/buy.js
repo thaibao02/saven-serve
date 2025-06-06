@@ -342,7 +342,7 @@ const Buy = () => {
             <div className="cart-list">
               {cart.map((item) => (
                 <div className="cart-item" key={item.product._id}> 
-                  <img src={`/${item.product.images && item.product.images.length > 0 ? item.product.images[0] : cocacola}`} alt={item.product.name} className="cart-item-img" />
+                  <img src={`https://saven.tramsac.xyz/${item.product.images && item.product.images.length > 0 ? item.product.images[0] : cocacola}`} alt={item.product.name} className="cart-item-img" />
                   <div className="cart-item-info">
                     <div className="cart-item-name">{item.product.name}</div>
                     <div className="cart-item-more">Thêm »</div>
