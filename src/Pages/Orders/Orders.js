@@ -107,7 +107,7 @@ const Orders = () => {
                                     <div key={item._id} className="order-item">
                                         {item.product && item.product.images && item.product.images.length > 0 ? (
                                             <img 
-                                                src={`/${item.product.images[0]}`} 
+                                                src={`https://saven.tramsac.xyz/${item.product.images[0]}`} 
                                                 alt={item.product ? item.product.name : 'Product Image'}
                                                 className="order-item-image"
                                             />
