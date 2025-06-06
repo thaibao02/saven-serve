@@ -311,7 +311,7 @@ const Buy = () => {
                 <div className="buy-product-card" key={p._id}>
                   {p.badge && <div className="buy-product-badge">{p.badge}</div>}
                   <div className="buy-product-like" onClick={() => handleLikeClick(p._id)}><FaHeart color={p.liked ? '#7bc043' : '#bbb'} /></div>
-                  <img src={`/${p.images && p.images.length > 0 ? p.images[0] : cocacola}`} alt={p.name} className="buy-product-img" />
+                  <img src={` https://saven.tramsac.xyz/${p.images && p.images.length > 0 ? p.images[0] : cocacola}`} alt={p.name} className="buy-product-img" />
                   <div className="buy-product-pack">{p.name}</div>
                   <div className="buy-product-progress">
                     <div className="buy-product-progress-bar"></div>
