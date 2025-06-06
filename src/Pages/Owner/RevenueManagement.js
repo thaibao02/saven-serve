@@ -28,7 +28,7 @@ const RevenueManagement = () => {
 
             try {
                 // Fetch revenue data for the selected period
-                const response = await fetch(`/api/orders/revenue?period=${selectedPeriod}`, {
+                const response = await fetch(` https://saven.tramsac.xyz/api/orders/revenue?period=${selectedPeriod}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',

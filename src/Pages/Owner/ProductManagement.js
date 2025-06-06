@@ -126,8 +126,8 @@ const ProductManagement = () => {
 
         try {
             const url = isEditing 
-                ? `http://157.230.245.1:5000/api/products/${editingProductId}`
-                : 'http://157.230.245.1:5000/api/products';
+                ? ` https://saven.tramsac.xyz/api/products/${editingProductId}`
+                : ' https://saven.tramsac.xyz/api/products';
             
             const method = isEditing ? 'PUT' : 'POST';
 
@@ -191,7 +191,7 @@ const ProductManagement = () => {
         if (!token) return;
 
         try {
-            const response = await fetch('http://157.230.245.1:5000/api/products', {
+            const response = await fetch(' https://saven.tramsac.xyz/api/products', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -220,7 +220,7 @@ const ProductManagement = () => {
 
         if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) { // Confirmation dialog
             try {
-                const response = await fetch(`http://157.230.245.1:5000/api/products/${productId}`, {
+                const response = await fetch(` https://saven.tramsac.xyz/api/products/${productId}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -378,7 +378,7 @@ const ProductManagement = () => {
                                     <td>
                                         {product.images && product.images.length > 0 ? (
                                             <img 
-                                                src={`http://157.230.245.1:5000/${product.images[0]}`} 
+                                                src={` https://saven.tramsac.xyz/${product.images[0]}`} 
                                                 alt={product.name} 
                                                 style={{ width: '50px', height: 'auto' }} 
                                             />

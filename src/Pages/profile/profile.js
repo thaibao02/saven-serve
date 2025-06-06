@@ -37,7 +37,7 @@ const ProfilePage = () => {
             }
 
             try {
-                const response = await fetch('http://157.230.245.1:5000/api/profile', {
+                const response = await fetch(' https://saven.tramsac.xyz/api/profile', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ const ProfilePage = () => {
         try {
             // Implement backend API call to update profile
             // Assuming a PUT or PATCH request to /api/profile
-            const response = await fetch('http://157.230.245.1:5000/api/profile', {
+            const response = await fetch(' https://saven.tramsac.xyz/api/profile', {
                 method: 'PUT', // Or PATCH
                 headers: {
                     'Authorization': `Bearer ${token}`,

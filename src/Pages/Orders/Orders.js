@@ -17,7 +17,7 @@ const Orders = () => {
             }
 
             try {
-                const response = await fetch('http://157.230.245.1:5000/api/orders', {
+                const response = await fetch(' https://saven.tramsac.xyz/api/orders', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
