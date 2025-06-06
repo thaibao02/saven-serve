@@ -13,7 +13,7 @@ const RegisterPage = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('/api/register', { // Assuming backend runs on the same domain/port or you use a proxy
+            const response = await fetch('http://157.230.245.1:5000/api/register', { // Assuming backend runs on the same domain/port or you use a proxy
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

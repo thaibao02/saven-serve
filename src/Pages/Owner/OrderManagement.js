@@ -20,7 +20,7 @@ const OrderManagement = () => {
         }
 
         try {
-            const response = await fetch('/api/orders/all', {
+            const response = await fetch('http://157.230.245.1:5000/api/orders/all', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ const OrderManagement = () => {
         ));
 
         try {
-            const response = await fetch(`/api/orders/${orderId}/status`, {
+            const response = await fetch(`http://157.230.245.1:5000/api/orders/${orderId}/status`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,

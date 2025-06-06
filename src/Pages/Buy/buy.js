@@ -33,7 +33,7 @@ const Buy = () => {
       setError(null); // Clear previous errors
 
       try {
-          const response = await fetch('/api/products', {
+          const response = await fetch('http://157.230.245.1:5000/api/products', {
               headers: {
                   // Conditionally include Authorization header if token exists
                   // 'Authorization': token ? `Bearer ${token}` : '',
@@ -181,7 +181,7 @@ const Buy = () => {
 
       try {
           // First check user profile information
-          const profileResponse = await fetch('/api/profile', {
+          const profileResponse = await fetch('http://157.230.245.1:5000/api/profile', {
               headers: {
                   'Authorization': `Bearer ${token}`,
                   'Content-Type': 'application/json',
@@ -224,7 +224,7 @@ const Buy = () => {
               console.log(`Item ${index}:`, item);
           });
 
-          const response = await fetch('/api/orders', {
+          const response = await fetch('http://157.230.245.1:5000/api/orders', {
               method: 'POST',
               headers: {
                   'Authorization': `Bearer ${token}`,
