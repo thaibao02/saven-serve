@@ -121,7 +121,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="promotion-section">
+      {/* <div className="promotion-section">
         <div className="promotion-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <div className="promotion-title">Khuyến mãi trong ngày</div>
@@ -155,7 +155,7 @@ const Home = () => {
           </div>
           <button className="promotion-arrow right"><FaChevronRight color="#7bc043" size={28} /></button>
         </div>
-      </div>
+      </div> */}
 
       <div className="how-section">
         <h2 className="how-title">Cách chúng tôi hoạt động</h2>
