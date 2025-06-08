@@ -121,41 +121,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* <div className="promotion-section">
-        <div className="promotion-header">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-            <div className="promotion-title">Khuyến mãi trong ngày</div>
-            <div className="promotion-timer">
-              <span className="promotion-timer-label">Kết thúc</span>
-              <span className="promotion-timer-count">{hours} : {minutes} : {seconds}</span>
-            </div>
-          </div>
-          <a href="/promotions" className="promotion-viewall">VIEW ALL</a>
-        </div>
-        <div className="promotion-slider">
-          <button className="promotion-arrow left"><FaChevronLeft color="#7bc043" size={28} /></button>
-          <div className="promotion-products">
-            {[1,2,3,4,5,6,7].map((item, idx) => (
-              <div className="promotion-product-card" key={idx}>
-                <img src={cocacola} alt="Coca cola" className="promotion-product-img" />
-                <div className="promotion-product-pack">6 Lon <span>320ML</span></div>
-                <div className="promotion-progress">
-                  <div className="promotion-progress-bar"></div>
-                  <span className="promotion-progress-label">Sắp cháy hàng <FaFire color="#ff5722" size={16} style={{marginLeft: 4}} /></span>
-                </div>
-                <div className="promotion-product-name">Coca cola</div>
-                <div className="promotion-product-rating">★ ★ ★ ★ ★</div>
-                <div className="promotion-product-price"><span>8.000 VND</span> /Lon</div>
-                <div className="promotion-product-bottom">
-                  <span className="promotion-product-old">12.000 VND</span>
-                  <span className="promotion-product-exp">HSD: Còn  3 tháng </span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <button className="promotion-arrow right"><FaChevronRight color="#7bc043" size={28} /></button>
-        </div>
-      </div> */}
+      
 
       <div className="how-section">
         <h2 className="how-title">Cách chúng tôi hoạt động</h2>
