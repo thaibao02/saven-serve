@@ -17,9 +17,9 @@ const Footer = () => {
       </div>
       <div className="footer-contact-row">
         <span><FaPhoneAlt style={{marginRight: 8}} /> <b>+84 986 452 731</b></span>
-        <span><FaEnvelope style={{marginRight: 8}} /> <b>Saven&Server@gmail.com</b></span>
+        <span><FaEnvelope style={{marginRight: 8}} /> <b>SaveNServer@gmail.com</b></span>
         <span><FaMapMarkerAlt style={{marginRight: 8}} /> <b>FPT University</b></span>
-        <span><FaGlobe style={{marginRight: 8}} /> <b>S&S.com</b></span>
+        <span><FaGlobe style={{marginRight: 8}} /> <b>https://saven-serve.vercel.app/</b></span>
       </div>
       <hr className="footer-hr" />
       <div className="footer-bottom-row">
