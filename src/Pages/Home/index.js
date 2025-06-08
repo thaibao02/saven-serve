@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import banner from '../../Assets/banner.jpg';
 import logochinh from '../../Assets/logochinh.png';
 import banner2 from '../../Assets/banner2.png';
 import thit from '../../Assets/thit.png';
 import raucu from '../../Assets/raucu.png';
 import nuocngot from '../../Assets/nuocngot.png';
-import cocacola from '../../Assets/cocacola.png';
+
 import thumua from '../../Assets/thumua.png';
 import phanloai from '../../Assets/phanloai.png';
 import dangban from '../../Assets/dangban.png';
@@ -19,7 +18,7 @@ import gs25 from '../../Assets/gs25.png';
 import topsmarket from '../../Assets/topsmarket.png';
 import './Home.css';
 import { GiPumpkin, GiGrapes, GiOrangeSlice } from 'react-icons/gi';
-import { FaChevronLeft, FaChevronRight, FaFire, FaUser, FaRegComment } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaUser, FaRegComment } from 'react-icons/fa';
 
 // const categories = [
 //   'Khuyến Mãi',
@@ -36,23 +35,7 @@ import { FaChevronLeft, FaChevronRight, FaFire, FaUser, FaRegComment } from 'rea
 
 const Home = () => {
   // Countdown timer state
-  const [timeLeft, setTimeLeft] = useState(7 * 60 * 60); // 7 tiếng tính bằng giây
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) return 7 * 60 * 60; // reset về 7 tiếng
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Format time
-  const hours = String(Math.floor(timeLeft / 3600)).padStart(2, '0');
-  const minutes = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, '0');
-  const seconds = String(timeLeft % 60).padStart(2, '0');
-
+  
   return (
     <div className='home'>
       <div className="home-container">
