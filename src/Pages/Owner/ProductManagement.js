@@ -244,9 +244,9 @@ const ProductManagement = () => {
 
     return (
         <div className="product-management-container">
-            <h2>Product Management</h2>
+            <h2>Quản lí sản phẩm</h2>
             {!showForm && (
-                <button className="add-product-button" onClick={handleAddProductClick}>Add Product</button>
+                <button className="add-product-button" onClick={handleAddProductClick}>Thêm sản phẩm</button>
             )}
 
             {/* Filter Dropdown */}
