@@ -1,5 +1,5 @@
 import banner from '../../Assets/banner.jpg';
-import logochinh from '../../Assets/logochinh.png';
+import logofinal from '../../Assets/logofinal.png';
 import banner2 from '../../Assets/banner2.png';
 import thit from '../../Assets/thit.png';
 import raucu from '../../Assets/raucu.png';
@@ -47,7 +47,7 @@ const Home = () => {
         <div className="banner-section" style={{ backgroundImage: `url(${banner})` }}>
           <div className="banner-content">
             <div className="banner-row">
-                <img src={logochinh} alt="logo" className="banner-logo" />
+                <img src={logofinal} alt="logo" className="banner-logo" />
             </div>
             <p className="banner-desc">
               Chúng tôi với sứ mệnh mang lại bữa ăn giá rẻ, chất lượng và giúp bảo vệ môi trường bằng cách không để lãng phí thực phẩm dư thừa!

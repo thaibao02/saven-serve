@@ -1,7 +1,7 @@
 import { FaUser } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import logochinh from '../../Assets/logochinh.png';
+import logofinal from '../../Assets/logofinal.png';
 import './Header.css';
 
 const Header = () => {
@@ -75,7 +75,7 @@ const Header = () => {
         <div className="header">
             {/* logo */}
             <div className="logo">
-                <img src={logochinh} alt="logo" className="logo-img" />
+                <img src={logofinal} alt="logo" className="logo-img" />
             </div>
 
             {/* navigation */}
